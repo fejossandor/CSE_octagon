@@ -16,10 +16,10 @@ for experiment in range(100):
       #inducer_congruency = ["congruent"] * 16 + ["incongruent"] * 16
       #diagnostic_congruency = ["congruent"] * 16 + ["incongruent"] * 16
       conditions = (
-    [("incongruent", "congruent")] * 8 +
-    [("congruent", "incongruent")] * 8 +
-    [("congruent", "congruent")] * 8 +
-    [("incongruent", "incongruent")] * 8
+    [("incongruent", "congruent")] * 4 +
+    [("congruent", "incongruent")] * 4 +
+    [("congruent", "congruent")] * 4 +
+    [("incongruent", "incongruent")] * 4
 )
 
      # random.shuffle(inducer_congruency)
