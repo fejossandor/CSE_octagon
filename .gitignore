@@ -1,0 +1,11 @@
+# for the .md files
+.Rhistory
+.RData
+*.Rproj.user
+
+# only for explanations
+vazlat.md
+
+JsPsych/
+
+
