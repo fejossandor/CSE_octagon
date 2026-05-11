@@ -12,8 +12,8 @@ var timeline = [];
 var probe_index = 0;
 
 var welcome = {
-	type: jsPsychButtonResponse, 
-	 stimulus: `<img src="Experimental material/University_logo.png" alt=University Logo" style="width: 300px; display: block; margin: auto;">
+	type: jsPsychButtonResponse,
+	stimulus: `<img src="Experimental material/University_logo.png" alt=University Logo" style="width: 300px; display: block; margin: auto;">
             <h2>Üdvözlünk a Metatudomány kutatócsoport vizsgálatában!</h2>
                 <p>Egy tudományos kutatásban veszel részt, amelynek vezetője Bognár Miklós, az ELTE Affektív Pszichológia Tanszékének kutatója. 
                 A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
@@ -21,85 +21,103 @@ var welcome = {
                 <p>A kutatásban való részvétel teljesen önkéntes. A vizsgálatot bármikor indoklás nélkül megszakíthatod. 
 		Ha bármilyen kérdésed, észrevételed vagy problémád van a kutatással kapcsolatban,
 		írj Bognár Miklósnak a <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a> címre.</p>  `,
-        choices: ["Vissza", "Tovább"]
+	choices: ["Vissza", "Tovább"]
 };
 
 var prime = {
-	type: jsPsychHtmlKeyboardResponse, 
-	stimulus: jsPsych.timelineVariable('prime'), 
-	choices: "NO_KEYS", 
-	trial_duration: prime_duration, 
+	type: jsPsychHtmlKeyboardResponse,
+	stimulus: jsPsych.timelineVariable('prime'),
+	choices: "NO_KEYS",
+	trial_duration: prime_duration,
 	data: {
 		task: "prime"
 	}
-}; 
+};
 
 var probe = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: jsPsych.timelineVariable('probe'),
-        choices: ["a", "b", "y", "z"],
-        stimulus_duration: probe_stim_duration,
-        trial_duration: probe_duration,
-        response_ends_trial: false,
-        data: {
-            correct_response: jsPsych.timelineVariable('correct_response'),
-            task: "probe",
-            congruency: jsPsych.timelineVariable('congruency'),
-            probe_index: probe_index
-        },
-        on_finish: function (data) {
-            probe_index = probe_index + 1
-            data.correct = data.response === data.correct_response;
-            data.probe_index = probe_index
-        }
+	type: jsPsychHtmlKeyboardResponse,
+	stimulus: jsPsych.timelineVariable('probe'),
+	choices: ["a", "b", "y", "z"],
+	stimulus_duration: probe_stim_duration,
+	trial_duration: probe_duration,
+	response_ends_trial: false,
+	data: {
+		correct_response: jsPsych.timelineVariable('correct_response'),
+		task: "probe",
+		congruency: jsPsych.timelineVariable('congruency'),
+		probe_index: probe_index
+	},
+	on_finish: function (data) {
+		probe_index = probe_index + 1
+		data.correct = data.response === data.correct_response;
+		data.probe_index = probe_index
+	}
+};
+
+var fixation = {
+	type: jsPsychButtonResponse,
+	stimulus: '<div style="font-size:60px;">+</div>',
+	choices: "NO_KEYS",
+	trial_duration: 2000,
+	data: {
+		task: 'fixation'
+	}
 };
 
 var isi = {
 	type: jsPsychHtmlKeyboardResponse,
-        stimulus: ' ',
-        choices: "NO_KEYS",
-        trial_duration: isi_duration,
-        data: {
-        	task: "blank"
+	stimulus: ' ',
+	choices: "NO_KEYS",
+	trial_duration: isi_duration,
+	data: {
+		task: "blank"
 	}
 }
 
 var goodbye = {
- type: jsPsychHtmlKeyboardResponse,
-        stimulus:
-            function () {
-                return `<h2>Kísérlet vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> Köszönjük, hogy részt vettél a vizsgálatban!</p>`
-            },
-        choices: "ALL_KEYS"
+	type: jsPsychHtmlKeyboardResponse,
+	stimulus:
+		function () {
+			return `<h2>Kísérlet vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> Köszönjük, hogy részt vettél a vizsgálatban!</p>`
+		},
+	choices: "ALL_KEYS"
 }
 
 var practiceStart = {
-y	type: jsPsychHtmlKeyboardResponse, 
-	stimulus: 
+	type: jsPsychHtmlKeyboardResponse,
+	stimulus:
 		function () {
 			return `<h2>Gyakorló blokk</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérlet egy gyakorló blokkal kezdődik. 
 			Kérjük, törekedj a minál gyorsabb és pontosabb válaszadásra! Amint készen állsz, nyomj meg egy tetszőleges billentyűt a kezdéshez!</p>`
-	}, 
+		},
 	choices: "ALL_KEYS"
 };
 
 var practiceEnd = {
-	type: jsPsychHtmlKeyboardResponse, 
-	stimulus: 
+	type: jsPsychHtmlKeyboardResponse,
+	stimulus:
 		function () {
 			return `<h2>Gyakorló blokk vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A gyakorló blokk véget ért. Most a kísérleti blokk következik. Ha készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`
-	}, 
+		},
 	choices: "ALL_KEYS"
 
-}; 
-
-var blockEnd = {
-	type: jsPsychHtmlKeyboardResponse, 
-	stimulus: 
-		function () {
-			return `<p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit, legfeljebb 2 perc áll rendelkezésedre. Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`
-	},
-	choices: "ALL_KEYS"
 };
 
+var blockEnd = {
+	type: jsPsychHtmlKeyboardResponse,
+	stimulus:
+		function () {
+			return `<p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit, legfeljebb 2 perc áll rendelkezésedre. Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`
+		},
+	choices: "ALL_KEYS"
+}
 
+// -------------------------------
+// csak vazlat
+// -------------------------------
+// var practice_block = a json file, amit randomizalva kihuzok a ..//randomized/practice jsonokbol. 
+// itt a trial timeline ezeket a jsonokon iteralna vegig, es olvasna be a prime es a probe propertyket (mivel azok a timeline variable-ek)
+
+// var trial_timeline[prime, isi, probe, fixation]
+// var timeline_variables = practice_block -- igy hogy ezt definialtam, a kod fel tudja ismerni, hogy mit kell kiolvasni a jsonokbol 
+// var timeline = trial_timeline 
