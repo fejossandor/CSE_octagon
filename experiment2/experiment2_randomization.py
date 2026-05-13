@@ -47,7 +47,7 @@ for experiment in range(100):
       "choices": [], 
       "ind_diag": "inducer"
       }
-      inducer_probe_trial["stimulus"] = random.choice(["A", "B"])
+      inducer_probe_trial["stimulus"] = random.choice([["A"], ["B"]])
       inducer_prime_trial["class"] = "prime"
       inducer_prime_trial["pair_id"] = i
       inducer_prime_trial["incongruency_level"] = ind_c
@@ -130,7 +130,7 @@ for experiment in range(100):
      "choices": [], 
      "ind_diag": "diagnostic"
      }
-      diagnostic_probe_trial["stimulus"] = random.choice(["Z", "Y"])
+      diagnostic_probe_trial["stimulus"] = random.choice([["Z"], ["Y"]])
       diagnostic_prime_trial["class"] = "prime"
       diagnostic_prime_trial["pair_id"] = i
       diagnostic_prime_trial["incongruency_level"] = diag_c
@@ -144,7 +144,7 @@ for experiment in range(100):
             diagnostic_prime_trial["stimulus"] = ["Z", "Z"]
       else: 
           if diagnostic_probe_trial["stimulus"] == ["Z"]:
-            diagnostic_probe_trial["stimulus"] = ["Y", "Y"]
+            diagnostic_prime_trial["stimulus"] = ["Y", "Y"]
           else:
             diagnostic_probe_trial["stimulus"] = ["Z", "Z"]
    
