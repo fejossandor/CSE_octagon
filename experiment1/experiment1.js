@@ -11,17 +11,35 @@ var probe_stim_duration = 200;
 var timeline = [];
 var probe_index = 0;
 
-var welcome = {
-	type: jsPsychButtonResponse,
-	stimulus: `<img src="Experimental material/University_logo.png" alt=University Logo" style="width: 300px; display: block; margin: auto;">
-            <h2>Üdvözlünk a Metatudomány kutatócsoport vizsgálatában!</h2>
-                <p>Egy tudományos kutatásban veszel részt, amelynek vezetője Bognár Miklós, az ELTE Affektív Pszichológia Tanszékének kutatója. 
-                A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
-                <h3>Részvétel</h3>
-                <p>A kutatásban való részvétel teljesen önkéntes. A vizsgálatot bármikor indoklás nélkül megszakíthatod. 
-		Ha bármilyen kérdésed, észrevételed vagy problémád van a kutatással kapcsolatban,
-		írj Bognár Miklósnak a <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a> címre.</p>  `,
+//Welcome
+var WelcomeTrial = {
+	type: jsPsychHtmlButtonResponse,
+	stimulus: `
+    <h2>Üdvözlünk a Metatudomány kutatócsoport vizsgálatában!</h2>
+    <p>Egy tudományos kutatásban veszel részt, amelynek vezetője Bognár Miklós, az ELTE Affektív Pszichológia Tanszékének kutatója.
+    A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
+    <h3>Részvétel</h3>
+    <p>A kutatásban való részvétel teljesen önkéntes. A vizsgálatot bármikor indoklás nélkül megszakíthatod.
+    Ha bármilyen kérdésed, észrevételed vagy problémád van a kutatással kapcsolatban,
+    írj Bognár Miklósnak a <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a> címre.</p>
+  `,
 	choices: ["Vissza", "Tovább"]
+};
+
+//Intro
+let IntroTrial = {
+	type: jsPsychHtmlKeyboardResponse,
+	stimulus: `
+    <h2> A feladatod az lesz, hogy a megjelenő ingernek megfelelő gombot nyomd be olyan gyorsan, amilyen gyorsan csak tudod </h2>
+    <p><b>Kérlek helyezd a bal középső ujjad a <span class ='key'>F</span> billentyűre, a bal mutató ujjad a <span class ='key'>G</span> billentyűre, a jobb középső ujjad a <span class ='key'>J</span> billentyűre, a jobb mutató ujjad a <span class ='key'>N</span> billentyűre.</b></p>
+    <p> Először egy nagyobb méretű betűt fogsz látni, amelyre <b> nem kell reagálnod</b> </p> 
+    <p> Ezt követően rövid ideig fehér képernyőt fogsz látni, majd megjelenik az a betű, amelyre reagálnod kell</p>
+    <p> Ammennyiben <b>A</b> betűt látsz, nyomd meg a <span class ='key'>F</span> billentyűt </p> <p>Ammennyiben <b>B</b> betűt látsz, nyomd meg a <span class ='key'>G</span> billentyűt </p> 
+    <p>Ammennyiben <b>Y</b> betűt látsz, nyomd meg a <span class ='key'>J</span> billentyűt </p> 
+    <p>Ammennyiben <b>Z</b> betűt látsz, nyomd meg a <span class ='key'>N</span> billentyűt </p>
+    <p> Ha készen állsz, nyomd meg a <span class ='key'>SPACE</span> billentyűt a gyakorló blokk elkezdéséhez.</p>
+    `,
+	choices: ['']
 };
 
 var prime = {
@@ -115,9 +133,20 @@ var blockEnd = {
 // -------------------------------
 // csak vazlat
 // -------------------------------
-// var practice_block = a json file, amit randomizalva kihuzok a ..//randomized/practice jsonokbol. 
+// var practice_block = a json file, amit randomizalva kihuzok a ..//randomized/practice jsonokbol.
 // itt a trial timeline ezeket a jsonokon iteralna vegig, es olvasna be a prime es a probe propertyket (mivel azok a timeline variable-ek)
 
 // var trial_timeline[prime, isi, probe, fixation]
-// var timeline_variables = practice_block -- igy hogy ezt definialtam, a kod fel tudja ismerni, hogy mit kell kiolvasni a jsonokbol 
+// var timeline_variables = practice_block -- igy hogy ezt definialtam, a kod fel tudja ismerni, hogy mit kell kiolvasni a jsonokbol
 // var timeline = trial_timeline 
+
+
+
+//Debrief 
+var DebriefTrial = {
+	type: jsPsychHtmlKeyboardResponse,
+	stimulus: `
+    <h2>Kísérlet vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> Köszönjük, hogy részt vettél a vizsgálatban!</p>
+    `,
+	choices: "ALL_KEYS"
+};
