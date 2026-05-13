@@ -38,13 +38,15 @@ for experiment in range(100):
          inducer_prime_trial = {
          "type": "jsPsychHtmlKeyboardResponse", 
          "stimulus": [], 
-         "choices": []
+         "choices": [], 
+         "ind_diag": "inducer"
          }
 
          inducer_probe_trial = {
          "type": "jsPsychHtmlKeyboardResponse", 
          "stimulus": [], 
-        "choices": []
+        "choices": [], 
+        "ind_diag": "inducer"
          }
          inducer_prime_trial["stimulus"] = random.choice(["A", "B"])
          inducer_prime_trial["class"] = "prime"
@@ -66,20 +68,22 @@ for experiment in range(100):
          inducer_probe_trial["condition"] = condition
 
 
-         trials.append(inducer_prime_trial)
-         trials.append(inducer_probe_trial)
+
+         
     
     
          diagnostic_prime_trial = {
         "type": "jsPsychHtmlKeyboardResponse", 
         "stimulus": [], 
-        "choices": []
+        "choices": [], 
+        "ind_diag": "diagnostic"
         }
 
          diagnostic_probe_trial = {
         "type": "jsPsychHtmlKeyboardResponse", 
         "stimulus": [], 
-        "choices": []
+        "choices": [], 
+        "ind_diag": "diagnostic"
         }
          diagnostic_prime_trial["stimulus"] = random.choice(["Z", "Y"])
          diagnostic_prime_trial["class"] = "prime"
@@ -109,12 +113,24 @@ for experiment in range(100):
          inducer_probe_trial["block"] = block 
          diagnostic_prime_trial["block"] = block 
          diagnostic_probe_trial["block"] = block 
-         trials.append(diagnostic_prime_trial)
-         trials.append(diagnostic_probe_trial)
+
+
+         inducer_trial = {
+           "prime": inducer_prime_trial,
+           "probe": inducer_probe_trial, 
+           
+         }
+         diagnostic_trial = {
+           "prime": diagnostic_prime_trial,
+           "probe": diagnostic_probe_trial
+         }
+
+         trials.append(inducer_trial)
+         trials.append(diagnostic_trial)
          
       all_blocks.append(trials)
    all_experiments.append(all_blocks)
-   with open(f"C:/ELTE_ST/Additional_research_activity/Python_practice/Trial_sequences/experiment_{experiment+1}.json", "w") as f:
+   with open(f"C:/ELTE_ST/Additional_research_activity/Python_practice/Trial_sequences/experiment01/experiment_{experiment+1}.json", "w") as f:
     json.dump(all_blocks, f, indent=4)
 print(trials)
 
