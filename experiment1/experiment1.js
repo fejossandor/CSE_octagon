@@ -39,7 +39,7 @@ let IntroTrial = {
     <p>Ammennyiben <b>Z</b> betűt látsz, nyomd meg a <span class ='key'>N</span> billentyűt </p>
     <p> Ha készen állsz, nyomd meg a <span class ='key'>SPACE</span> billentyűt a gyakorló blokk elkezdéséhez.</p>
     `,
-	choices: ['']
+	choices: [' ']
 };
 
 var prime = {
@@ -170,17 +170,18 @@ fetch(path)
 // ?? eddig tuti jo 
 
 // ?? innentol ?
-trial_timeline = [prime, isi, probe, fixation];
 
-exp_variables =
+var trial_sequence = {
+	timeline: [prime, isi, probe, fixation],
+	timeline_variables: practice_block
+};
 
-
-	timeline.push(
-		WelcomeTrial,
-		IntroTrial,
-		practiceStart,
-		exp_variables,
-	)
+timeline.push(
+	WelcomeTrial,
+	IntroTrial,
+	practiceStart,
+	trial_sequence
+);
 
 jsPsych.run(timeline)
 
