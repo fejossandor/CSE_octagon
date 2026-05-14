@@ -6,6 +6,8 @@
 # only for explanations
 vazlat.md
 
-JsPsych/
+jspsych/
 
+# randomization .json objects stored locally (for demonstration purposes)
+randomized/
 

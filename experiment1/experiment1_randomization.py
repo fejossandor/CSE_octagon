@@ -11,7 +11,7 @@ for experiment in range(100):
    all_blocks = []  
    
     
-   for block in range(10):
+   for block in range(1):
         
       #inducer_congruency = ["congruent"] * 16 + ["incongruent"] * 16
       #diagnostic_congruency = ["congruent"] * 16 + ["incongruent"] * 16
@@ -130,8 +130,8 @@ for experiment in range(100):
          
       all_blocks.append(trials)
    all_experiments.append(all_blocks)
-   with open(f"C:/ELTE_ST/Additional_research_activity/Python_practice/Trial_sequences/experiment01/experiment_{experiment+1}.json", "w") as f:
-    json.dump(all_blocks, f, indent=4)
+   with open(f"/Users/ludmanyboglarka/Documents/metalab/cse-replication/CSE_octagon/randomized/practice/p_experiment_{experiment+1}.json", "w") as f:
+    json.dump(all_blocks, f, indent = 4)
 print(trials)
 
 print(len(trials))
@@ -139,5 +139,5 @@ print(len(trials))
 #f_trials_exp1 = pd.DataFrame(trials)
 #df_trials_exp1.to_csv("C:/ELTE_ST/Additional_research_activity/python_practice/exp1_trials.csv", index = False)
 
-with open("c:/ELTE_ST/Additional_research_activity/Python_practice/exp1_trials.json", "w") as f:
+with open("/Users/ludmanyboglarka/Documents/metalab/cse-replication/CSE_octagon/randomized/practice_trials.json", "w") as f:
     json.dump(all_blocks, f, indent=4)

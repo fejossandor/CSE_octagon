@@ -11,7 +11,7 @@ var probe_stim_duration = 200;
 var timeline = [];
 var probe_index = 0;
 
-//Welcome
+// Welcome
 var WelcomeTrial = {
 	type: jsPsychHtmlButtonResponse,
 	stimulus: `
@@ -26,7 +26,7 @@ var WelcomeTrial = {
 	choices: ["Vissza", "Tovább"]
 };
 
-//Intro
+// Intro
 let IntroTrial = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus: `
@@ -73,7 +73,7 @@ var probe = {
 };
 
 var fixation = {
-	type: jsPsychButtonResponse,
+	type: jsPsychHtmlButtonResponse,
 	stimulus: '<div style="font-size:60px;">+</div>',
 	choices: "NO_KEYS",
 	trial_duration: 2000,
@@ -142,11 +142,48 @@ var blockEnd = {
 
 
 
-//Debrief 
-var DebriefTrial = {
+// Debrief 
+var debriefTrial = {
 	type: jsPsychHtmlKeyboardResponse,
-	stimulus: `
-    <h2>Kísérlet vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> Köszönjük, hogy részt vettél a vizsgálatban!</p>
-    `,
+	stimulus:
+		`<h2>Kísérlet vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> 
+		Köszönjük, hogy részt vettél a vizsgálatban!</p>`,
 	choices: "ALL_KEYS"
 };
+
+var debug = 0;
+
+// Creating the practice block
+i = Math.floor(Math.random() * 100) + 1;
+var path = '../randomized/practice/p_experiment_' + i + '.json';
+
+var practice_block;
+
+fetch(path)
+	.then(response => response.json())
+	.then(data => {
+		console.log(data);
+		data = practice_block;
+	})
+	.catch(error => console.log('Error loading file: ', error));
+
+// ?? eddig tuti jo 
+
+// ?? innentol ?
+trial_timeline = [prime, isi, probe, fixation];
+
+exp_variables =
+
+
+	timeline.push(
+		WelcomeTrial,
+		IntroTrial,
+		practiceStart,
+		exp_variables,
+	)
+
+jsPsych.run(timeline)
+
+// Practice reloop node 
+// 1. definialom az accuracyt, majd kiszedem az adatbol 
+// 2. ha 80% alatti akkor reloop 
