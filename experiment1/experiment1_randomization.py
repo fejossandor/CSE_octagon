@@ -116,13 +116,23 @@ for experiment in range(100):
 
 
          inducer_trial = {
-           "prime": inducer_prime_trial,
-           "probe": inducer_probe_trial, 
+           "prime": inducer_prime_trial["stimulus"],
+           "probe": inducer_probe_trial["stimulus"],
+           "ind_diag": inducer_prime_trial["ind_diag"], 
+           "class":inducer_prime_trial["class"], 
+           "condition": inducer_prime_trial["condition"] , 
+           "block": inducer_prime_trial["block"], 
+           "pair_id": inducer_prime_trial["pair_id"]
            
          }
          diagnostic_trial = {
-           "prime": diagnostic_prime_trial,
-           "probe": diagnostic_probe_trial
+           "prime": diagnostic_prime_trial["stimulus"],
+           "probe": diagnostic_probe_trial["stimulus"],
+           "ind_diag": inducer_probe_trial["ind_diag"], 
+           "class":inducer_probe_trial["class"], 
+           "condition": inducer_probe_trial["condition"], 
+           "block": inducer_probe_trial["block"], 
+           "pair_id": inducer_probe_trial["pair_id"]
          }
 
          trials.append(inducer_trial)
@@ -130,7 +140,7 @@ for experiment in range(100):
          
       all_blocks.append(trials)
    all_experiments.append(all_blocks)
-   with open(f"/Users/ludmanyboglarka/Documents/metalab/cse-replication/CSE_octagon/randomized/practice/p_experiment_{experiment+1}.json", "w") as f:
+   with open(f"C:\ELTE_ST\Additional_research_activity\Python_practice\Trial_sequences\experiment01\p_experiment_{experiment+1}.json", "w") as f:
     json.dump(all_blocks, f, indent = 4)
 print(trials)
 
@@ -139,5 +149,8 @@ print(len(trials))
 #f_trials_exp1 = pd.DataFrame(trials)
 #df_trials_exp1.to_csv("C:/ELTE_ST/Additional_research_activity/python_practice/exp1_trials.csv", index = False)
 
-with open("/Users/ludmanyboglarka/Documents/metalab/cse-replication/CSE_octagon/randomized/practice_trials.json", "w") as f:
-    json.dump(all_blocks, f, indent=4)
+#with open("/Users/ludmanyboglarka/Documents/metalab/cse-replication/CSE_octagon/randomized/practice_trials.json", "w") as f:
+    #json.dump(all_blocks, f, indent=4)
+
+#with open(f"/Users/ludmanyboglarka/Documents/metalab/cse-replication/CSE_octagon/randomized/practice/p_experiment_{experiment+1}.json", "w") as f:
+    #json.dump(all_blocks, f, indent = 4)
