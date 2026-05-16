@@ -11,7 +11,7 @@ for experiment in range(100):
    all_blocks = []  
    
     
-   for block in range(1):
+   for block in range(10):
         
       #inducer_congruency = ["congruent"] * 16 + ["incongruent"] * 16
       #diagnostic_congruency = ["congruent"] * 16 + ["incongruent"] * 16
@@ -122,9 +122,14 @@ for experiment in range(100):
            "class":inducer_prime_trial["class"], 
            "condition": inducer_prime_trial["condition"] , 
            "block": inducer_prime_trial["block"], 
-           "pair_id": inducer_prime_trial["pair_id"]
+           "pair_id": inducer_prime_trial["pair_id"],
            
          }
+         if inducer_trial["probe"] == "A":
+           inducer_trial["correct_response"] = "f"
+         elif inducer_trial["probe"] == "B":
+           inducer_trial["correct_response"] = "g"
+         
          diagnostic_trial = {
            "prime": diagnostic_prime_trial["stimulus"],
            "probe": diagnostic_probe_trial["stimulus"],
@@ -134,6 +139,11 @@ for experiment in range(100):
            "block": inducer_probe_trial["block"], 
            "pair_id": inducer_probe_trial["pair_id"]
          }
+
+         if diagnostic_trial["probe"] == "Y":
+           diagnostic_trial["correct_response"] = "j"
+         elif diagnostic_trial["probe"] == "Z":
+           diagnostic_trial["correct_response"] = "n"
 
          trials.append(inducer_trial)
          trials.append(diagnostic_trial)
