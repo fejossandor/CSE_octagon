@@ -4,6 +4,16 @@ var jsPsych = initJsPsych({
 	}
 });
 
+let my_trials;
+// This is a temporary solution --> the code works if you run it on a python server
+//In the fetch section --> you should enter the server path from the directory in which the generated trials are stored
+async function loadExperiment() {
+	var expNum = Math.floor(Math.random() * 100) + 1
+	var response = await fetch(`http://localhost:8000/Trial_sequences/experiment01/\p_experiment_${expNum}.json?v=${Date.now()}`);
+	my_trials = await response.json();
+	startExperiment();
+}
+
 var probe_duration = 1600;
 var prime_duration = 200;
 var isi_duration = 1000;
@@ -45,7 +55,7 @@ let IntroTrial = {
 var prime = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus: jsPsych.timelineVariable('prime'),
-	choices: "NO_KEYS",
+	choices: ["NO_KEYS"],
 	trial_duration: prime_duration,
 	data: {
 		task: "prime"
@@ -55,15 +65,13 @@ var prime = {
 var probe = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus: jsPsych.timelineVariable('probe'),
-	choices: ["a", "b", "y", "z"],
+	choices: ["f", "g", "j", "n"],
 	stimulus_duration: probe_stim_duration,
 	trial_duration: probe_duration,
 	response_ends_trial: false,
 	data: {
 		correct_response: jsPsych.timelineVariable('correct_response'),
-		task: "probe",
-		congruency: jsPsych.timelineVariable('congruency'),
-		probe_index: probe_index
+		task: "probe"
 	},
 	on_finish: function (data) {
 		probe_index = probe_index + 1
@@ -73,9 +81,9 @@ var probe = {
 };
 
 var fixation = {
-	type: jsPsychHtmlButtonResponse,
+	type: jsPsychHtmlKeyboardResponse,
 	stimulus: '<div style="font-size:60px;">+</div>',
-	choices: "NO_KEYS",
+	choices: ["NO_KEYS"],
 	trial_duration: 2000,
 	data: {
 		task: 'fixation'
@@ -85,7 +93,7 @@ var fixation = {
 var isi = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus: ' ',
-	choices: "NO_KEYS",
+	choices: ["NO_KEYS"],
 	trial_duration: isi_duration,
 	data: {
 		task: "blank"
@@ -96,28 +104,28 @@ var goodbye = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus:
 		function () {
-			return `<h2>Kísérlet vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> Köszönjük, hogy részt vettél a vizsgálatban!</p>`
+			return `< h2 > Kísérlet vége</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> Köszönjük, hogy részt vettél a vizsgálatban!</p>`
 		},
-	choices: "ALL_KEYS"
+	choices: ["ALL_KEYS"]
 }
 
 var practiceStart = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus:
 		function () {
-			return `<h2>Gyakorló blokk</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérlet egy gyakorló blokkal kezdődik. 
-			Kérjük, törekedj a minál gyorsabb és pontosabb válaszadásra! Amint készen állsz, nyomj meg egy tetszőleges billentyűt a kezdéshez!</p>`
+			return `< h2 > Gyakorló blokk</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérlet egy gyakorló blokkal kezdődik.
+		Kérjük, törekedj a minál gyorsabb és pontosabb válaszadásra! Amint készen állsz, nyomj meg egy tetszőleges billentyűt a kezdéshez!</p>`
 		},
-	choices: "ALL_KEYS"
+	choices: ["ALL_KEYS"]
 };
 
 var practiceEnd = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus:
 		function () {
-			return `<h2>Gyakorló blokk vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A gyakorló blokk véget ért. Most a kísérleti blokk következik. Ha készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`
+			return `< h2 > Gyakorló blokk vége</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A gyakorló blokk véget ért. Most a kísérleti blokk következik. Ha készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`
 		},
-	choices: "ALL_KEYS"
+	choices: ["ALL_KEYS"]
 
 };
 
@@ -125,9 +133,9 @@ var blockEnd = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus:
 		function () {
-			return `<p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit, legfeljebb 2 perc áll rendelkezésedre. Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`
+			return `< p style = "text-align: center; max-width: 800px; margin: auto; font-size: 24px" > A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit, legfeljebb 2 perc áll rendelkezésedre.Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p > `
 		},
-	choices: "ALL_KEYS"
+	choices: ["ALL_KEYS"]
 }
 
 // -------------------------------
@@ -146,16 +154,18 @@ var blockEnd = {
 var debriefTrial = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus:
-		`<h2>Kísérlet vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> 
+		`< h2 > Kísérlet vége</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
 		Köszönjük, hogy részt vettél a vizsgálatban!</p>`,
-	choices: "ALL_KEYS"
+	choices: ["ALL_KEYS"]
 };
 
 var debug = 0;
 
+
 // Creating the practice block
-i = Math.floor(Math.random() * 100) + 1;
+/*i = Math.floor(Math.random() * 100) + 1;
 var path = '../randomized/practice/p_experiment_' + i + '.json';
+
 
 var practice_block;
 
@@ -170,10 +180,10 @@ fetch(path)
 // ?? eddig tuti jo 
 
 // ?? innentol ?
-
-var trial_sequence = {
+*/
+/*var trial_sequence = {
 	timeline: [prime, isi, probe, fixation],
-	timeline_variables: practice_block
+	timeline_variables: my_trials
 };
 
 timeline.push(
@@ -181,10 +191,33 @@ timeline.push(
 	IntroTrial,
 	practiceStart,
 	trial_sequence
-);
+);*/
+function startExperiment() {
 
-jsPsych.run(timeline)
+	let experimental_blocks = [];
 
-// Practice reloop node 
-// 1. definialom az accuracyt, majd kiszedem az adatbol 
+	for (let block of my_trials) {
+		experimental_blocks.push({
+			timeline: [prime, isi, probe, fixation],
+			timeline_variables: block
+		});
+	}
+
+	timeline.push(
+		WelcomeTrial,
+		IntroTrial,
+		practiceStart,
+		practiceEnd,
+		experimental_blocks,
+		debriefTrial
+	);
+
+	jsPsych.run(timeline);
+}
+
+loadExperiment()
+//jsPsych.run(timeline)
+
+// Practice reloop node
+// 1. definialom az accuracyt, majd kiszedem az adatbol
 // 2. ha 80% alatti akkor reloop 

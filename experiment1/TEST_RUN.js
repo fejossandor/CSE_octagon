@@ -14,9 +14,13 @@ async function loadExperiment() {
     startExperiment();
 }
 
+
 var probe_duration = 1600;
 var prime_duration = 200;
-var isi_duration = 1000;
+var long_isi_duration = 1000;
+var long_isi_blank_duration = 1600;
+var short_isi_duration = 33;
+var short_isi_blank_duration = 2567;
 var probe_stim_duration = 200;
 var timeline = [];
 var probe_index = 0;
@@ -55,7 +59,7 @@ let IntroTrial = {
 var prime = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: jsPsych.timelineVariable('prime'),
-    choices: ["NO_KEYS"],
+    choices: "NO_KEYS",
     trial_duration: prime_duration,
     data: {
         task: "prime"
@@ -80,21 +84,53 @@ var probe = {
     }
 };
 
-var fixation = {
+/*var fixation = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: '<div style="font-size:60px;">+</div>',
-    choices: ["NO_KEYS"],
+    choices: "NO_KEYS",
     trial_duration: 2000,
     data: {
         task: 'fixation'
     }
-};
+};*/
 
-var isi = {
+var long_isi = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: ' ',
-    choices: ["NO_KEYS"],
-    trial_duration: isi_duration,
+    choices: "NO_KEYS",
+    trial_duration: long_isi_duration,
+    data: {
+        task: "blank"
+    }
+}
+
+
+
+var long_isi_blank = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: ' ',
+    choices: "NO_KEYS",
+    trial_duration: long_isi_blank_duration,
+    data: {
+        task: "blank"
+    }
+}
+
+var short_isi = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: ' ',
+    choices: "NO_KEYS",
+    trial_duration: short_isi_duration,
+    data: {
+        task: "blank"
+    }
+}
+
+var short_isi_blank = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: ' ',
+    choices: "NO_KEYS",
+    trial_duration: short_isi_blank_duration,
     data: {
         task: "blank"
     }
@@ -106,36 +142,27 @@ var goodbye = {
         function () {
             return `< h2 > Kísérlet vége</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> Köszönjük, hogy részt vettél a vizsgálatban!</p>`
         },
-    choices: ["ALL_KEYS"]
+    choices: "ALL_KEYS"
 }
 
 var practiceStart = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus:
-        function () {
-            return `< h2 > Gyakorló blokk</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérlet egy gyakorló blokkal kezdődik.
-		Kérjük, törekedj a minál gyorsabb és pontosabb válaszadásra! Amint készen állsz, nyomj meg egy tetszőleges billentyűt a kezdéshez!</p>`
-        },
-    choices: ["ALL_KEYS"]
+    stimulus: `<h2> Gyakorló blokk</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérlet egy gyakorló blokkal kezdődik.
+		    Kérjük, törekedj a minál gyorsabb és pontosabb válaszadásra! Amint készen állsz, nyomj meg egy tetszőleges billentyűt a kezdéshez!</p>`,
+    choices: "ALL_KEYS"
 };
 
 var practiceEnd = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus:
-        function () {
-            return `< h2 > Gyakorló blokk vége</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A gyakorló blokk véget ért. Most a kísérleti blokk következik. Ha készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`
-        },
-    choices: ["ALL_KEYS"]
+    stimulus: `<h2>Gyakorló blokk vége</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A gyakorló blokk véget ért. Most a kísérleti blokk következik. Ha készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!<h2>`,
+    choices: "ALL_KEYS",
 
 };
 
 var blockEnd = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus:
-        function () {
-            return `< p style = "text-align: center; max-width: 800px; margin: auto; font-size: 24px" > A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit, legfeljebb 2 perc áll rendelkezésedre.Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p > `
-        },
-    choices: ["ALL_KEYS"]
+    stimulus: `<pstyle = "text-align: center; max-width: 800px; margin: auto; font-size: 24px" > A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit, legfeljebb 2 perc áll rendelkezésedre. Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`,
+    choices: "ALL_KEYS"
 }
 
 // -------------------------------
@@ -156,7 +183,7 @@ var debriefTrial = {
     stimulus:
         `< h2 > Kísérlet vége</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
 		Köszönjük, hogy részt vettél a vizsgálatban!</p>`,
-    choices: ["ALL_KEYS"]
+    choices: "ALL_KEYS"
 };
 
 var debug = 0;
@@ -194,26 +221,62 @@ timeline.push(
 );*/
 function startExperiment() {
 
+
     let experimental_blocks = [];
 
-    for (let block of my_trials) {
-        experimental_blocks.push({
-            timeline: [prime, isi, probe, fixation],
-            timeline_variables: block
-        });
+    let longFirst = (Math.floor(Math.random() * 2)) == 1
+
+
+    for (let i = 0; i < my_trials.length; i++) {
+        if (longFirst == true) {
+            if (i < my_trials.length - 5) {
+                experimental_blocks.push({
+                    timeline: [prime, long_isi, probe, long_isi_blank],
+                    timeline_variables: my_trials[i]
+                })
+            }
+            else {
+                experimental_blocks.push({
+                    timeline: [prime, short_isi, probe, short_isi_blank],
+                    timeline_variables: my_trials[i]
+                })
+                if (i < my_trials.length - 1) { experimental_blocks.push(blockEnd) }
+            }
+        }
+        else {
+            if (i < my_trials.length - 5) {
+                experimental_blocks.push({
+                    timeline: [prime, short_isi, probe, short_isi_blank],
+                    timeline_variables: my_trials[i]
+                })
+            }
+            else {
+                experimental_blocks.push({
+                    timeline: [prime, long_isi, probe, long_isi_blank],
+                    timeline_variables: my_trials[i]
+                })
+                if (i < my_trials.length - 1) { experimental_blocks.push(blockEnd) }
+            }
+        }
     }
+
+
+
 
     timeline.push(
         WelcomeTrial,
         IntroTrial,
+        practiceStart,
+        practiceEnd,
         experimental_blocks,
         debriefTrial
     );
-
-    jsPsych.run(timeline);
+    jsPsych.run(timeline)
+    console.log(experimental_blocks[0].timeline_variables[0])
 }
 
 loadExperiment()
+
 //jsPsych.run(timeline)
 
 // Practice reloop node
