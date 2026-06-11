@@ -10,15 +10,21 @@ var jsPsych = initJsPsych({
 var participant_id = jsPsych.randomization.randomID(2);
 jsPsych.data.addProperties({ participant: participant_id });
 
-let my_trials;
+var experimental_trials;
+var practice_trials;
 // This is a temporary solution --> the code works if you run it on a python server
 //In the fetch section --> you should enter the server path from the directory in which the generated trials are stored
 async function loadExperiment() {
     var expNum = Math.floor(Math.random() * 100) + 1
-    var response = await fetch(`http://localhost:8000/Trial_sequences/experiment01/\p_experiment_${expNum}.json?v=${Date.now()}`);
-    my_trials = await response.json();
+    var practice_response = await fetch(`http://localhost:8000/experiment1/Practice_trials/practice_trial_sequence${expNum}.json`)
+    var practice_trials = await practice_response.json
+
+    var response = await fetch(`http://localhost:8000/experiment1/Trial_sequences/experiment01/\p_experiment_${expNum}.json`);
+    experimental_trials = await response.json();
     startExperiment();
 }
+
+
 
 
 
@@ -51,8 +57,8 @@ if (debug) {
 var WelcomeTrial = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-    <h2>Üdvözlünk a Metatudomány Kutatócsoport vizsgálatában!</h2>
-    <p>Egy tudományos kutatásban veszel részt, amelynek vezetője Bognár Miklós, az ELTE Affektív Pszichológia Tanszékének kutatója.
+    <h2>Üdvözlünk a <b>Metatudomány Kutatócsoport</b> vizsgálatában!</h2>
+    <p>Egy tudományos kutatásban veszel részt, amelynek vezetője <b>Bognár Miklós</b>, az ELTE Affektív Pszichológia Tanszékének kutatója.
     A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
     <h3>Részvétel</h3>
     <p>A kutatásban való részvétel teljesen önkéntes. A vizsgálatot bármikor indoklás nélkül megszakíthatod.
@@ -66,7 +72,7 @@ var WelcomeTrial = {
 let IntroTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
-    <h2> A feladatod az lesz, hogy a megjelenő ingernek megfelelő gombot nyomd be olyan gyorsan, amilyen gyorsan csak tudod </h2>
+    <h2> A feladatod az lesz, hogy a megjelenő ingernek megfelelő gombot nyomd le olyan gyorsan, amilyen gyorsan csak tudod </h2>
     <p><b>Kérlek helyezd a bal középső ujjad a <span class ='key'>F</span> billentyűre, a bal mutató ujjad a <span class ='key'>G</span> billentyűre, a jobb középső ujjad a <span class ='key'>J</span> billentyűre, a jobb mutató ujjad a <span class ='key'>N</span> billentyűre.</b></p>
     <p> Először egy nagyobb méretű betűt fogsz látni, amelyre <b> nem kell reagálnod</b> </p> 
     <p> Ezt követően rövid ideig fehér képernyőt fogsz látni, majd megjelenik az a betű, amelyre reagálnod kell</p>
@@ -80,7 +86,7 @@ let IntroTrial = {
 
 var prime = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: jsPsych.timelineVariable('prime'),
+    stimulus: function () { return `<span class = "prime_stimulus">${jsPsych.evaluateTimelineVariable('prime')}</span>` },
     choices: "NO_KEYS",
     trial_duration: prime_duration,
     data: {
@@ -90,7 +96,9 @@ var prime = {
 
 var probe = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: jsPsych.timelineVariable('probe'),
+    stimulus: function () {
+        return `<span class="probe_stimulus">${jsPsych.evaluateTimelineVariable('probe')}</span>`
+    },
     choices: ["f", "g", "j", "n"],
     stimulus_duration: probe_stim_duration,
     trial_duration: probe_duration,
@@ -153,7 +161,7 @@ var goodbye = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus:
         function () {
-            return `< h2 > Kísérlet vége</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> Köszönjük, hogy részt vettél a vizsgálatban!</p>`
+            return `<h2> Kísérlet vége</h2> <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> Köszönjük, hogy részt vettél a vizsgálatban!</p>`
         },
     choices: "ALL_KEYS"
 }
@@ -161,9 +169,15 @@ var goodbye = {
 var practiceStart = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `<h2> Gyakorló blokk</h2 > <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérlet egy gyakorló blokkal kezdődik.
-		    Kérjük, törekedj a minál gyorsabb és pontosabb válaszadásra! Amint készen állsz, nyomj meg egy tetszőleges billentyűt a kezdéshez!</p>`,
+		    Kérjük, törekedj a minél gyorsabb és pontosabb válaszadásra! Amint készen állsz, nyomj meg egy tetszőleges billentyűt a kezdéshez!</p>`,
     choices: "ALL_KEYS"
 };
+
+var practiceLoop = {
+
+}
+
+
 
 var practiceEnd = {
     type: jsPsychHtmlKeyboardResponse,
@@ -179,7 +193,7 @@ blockEnd = {
         <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
         A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit.
         Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a folytatáshoz!</p>
-        <p style="font-size: 32px;">Hátralévő idő: <span id="timer">2:00</span></p>
+        <p style="font-size: 24px;  position: absolute; top: 40px; right: 80px;">Hátralévő idő: <span id="timer" class="timer">2:00</span></p>
     `,
     choices: "ALL_KEYS",
     trial_duration: 120000, // trial auto-ends after 2 minutes
@@ -198,11 +212,11 @@ blockEnd = {
             }
         }, 1000);
 
-        
+
         jsPsych.getCurrentTrial().countdown_id = countdown;
     },
     on_finish: function () {
-        
+
         clearInterval(jsPsych.getCurrentTrial().countdown_id);
     }
 }
@@ -229,41 +243,62 @@ var debriefTrial = {
 };
 
 
-// Creating the practice block
-/*i = Math.floor(Math.random() * 100) + 1;
-var path = '../randomized/practice/p_experiment_' + i + '.json';
- 
- 
-var practice_block;
- 
-fetch(path)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        data = practice_block;
-    })
-    .catch(error => console.log('Error loading file: ', error));
- 
-// ?? eddig tuti jo 
- 
-// ?? innentol ?
-*/
-/*var trial_sequence = {
-    timeline: [prime, isi, probe, fixation],
-    timeline_variables: my_trials
-};
- 
-timeline.push(
-    WelcomeTrial,
-    IntroTrial,
-    practiceStart,
-    trial_sequence
-);*/
-
-
-
-
 function startExperiment() {
+
+    timeline.push(
+        WelcomeTrial,
+        IntroTrial,
+        practiceStart)
+
+    /*let practice_procedure = [];
+
+    for (let i = 0; i < experimental_trials.length; i++) {
+        //same for loop strategy as in the case of the experimental trials --> i represents the index of the given block
+
+
+        /*very simple conditional function --> given that it is in a for loop --> if the 
+        practice passed condtion is fulfilled --> return false, so it does not progress to the next practice block
+        if the practice_passed condition is not fulfilled --> return true, so the for loop keeps going*/
+    /* var practice_block = {
+         timeline: [prime, long_isi, probe, long_isi_blank],
+         timeline_variables: practice_trials[i],
+         conditional_function: function () {
+             if (practice_passed == true) {
+                 return false
+             }
+             else { return true }
+         }
+     }
+     practice_procedure.push(practice_block)
+
+     //for the sake of easier understanding
+     var accuracy_check = {
+         timeline: 
+     }
+
+     var repeat_prac_meassage = {
+         type: jsPsychHtmlKeyboardResponse,
+         stimulus: `<p>Túl sokat hibáztál a gyakorló blokkban. Kérlek nyomd be a <span class= "key">SPACE</span> billentyűt,
+     hogy újrakezd a gyakorlást</p>`,
+         choices: [' ']
+     }
+
+     var repeat_prac_conditional = {
+         timeline: [repeat_prac_meassage],
+         conditional_function: function () {
+             var last_prac_trials = jsPsych.data.get().filter({ task: 'probe' }).last(practice_trials.length)
+             var n_correct = last_prac_trials.filter({ correct: true }).count();
+             var prop_corr = n_correct / practice_trials.length;
+             if (prop_corr < 0.8) {
+                 return true;
+             }
+             else { return false }
+         }
+     }
+     timeline.push(repeat_prac_conditional)
+ }*/
+
+
 
 
     let experimental_blocks = [];
@@ -271,7 +306,7 @@ function startExperiment() {
     let longFirst = (Math.floor(Math.random() * 2)) == 1
 
 
-    for (let i = 0; i < my_trials.length; i++) {
+    for (let i = 0; i < experimental_trials.length; i++) {
 
         var blockStart = {
             type: jsPsychHtmlKeyboardResponse,
@@ -283,48 +318,44 @@ function startExperiment() {
         experimental_blocks.push(blockStart)
 
         if (longFirst == true) {
-            if (i < my_trials.length - 5) {
+            if (i < experimental_trials.length - 5) {
                 experimental_blocks.push({
                     timeline: [prime, long_isi, probe, long_isi_blank],
-                    timeline_variables: my_trials[i]
+                    timeline_variables: experimental_trials[i]
                 })
             }
             else {
                 experimental_blocks.push({
                     timeline: [prime, short_isi, probe, short_isi_blank],
-                    timeline_variables: my_trials[i]
+                    timeline_variables: experimental_trials[i]
                 })
             }
         }
         else {
-            if (i < my_trials.length - 5) {
+            if (i < experimental_trials.length - 5) {
                 experimental_blocks.push({
                     timeline: [prime, short_isi, probe, short_isi_blank],
-                    timeline_variables: my_trials[i]
+                    timeline_variables: experimental_trials[i]
                 })
             }
             else {
                 experimental_blocks.push({
                     timeline: [prime, long_isi, probe, long_isi_blank],
-                    timeline_variables: my_trials[i]
+                    timeline_variables: experimental_trials[i]
                 })
             }
         }
 
-        if (i < my_trials.length - 1) { experimental_blocks.push(blockEnd) }
+        if (i < experimental_trials.length - 1) { experimental_blocks.push(blockEnd) }
     }
 
 
 
     timeline.push(
-        WelcomeTrial,
-        IntroTrial,
-        practiceStart,
         practiceEnd,
         ...experimental_blocks, //- this unpacking operator is some pretty cool shit
         debriefTrial
     );
-    //console.log(experimental_blocks[0].timeline_variables[0])
     jsPsych.run(timeline)
     console.log(experimental_blocks[1].timeline_variables[1])
     console.log(experimental_blocks)
@@ -333,8 +364,3 @@ function startExperiment() {
 
 loadExperiment()
 
-//jsPsych.run(timeline)
-
-// Practice reloop node
-// 1. definialom az accuracyt, majd kiszedem az adatbol
-// 2. ha 80% alatti akkor reloop 

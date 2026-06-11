@@ -9,15 +9,36 @@
 h2 {
     font-style: italic;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 32px;
 }
 
 h3 {
     font-style: italic;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 28px;
 }
 
 p {
-    font-size: 16px;
+    font-size: 20px;
+}
+
+.prime_stimulus {
+    font-size: 80px;
+    font-family: monospace;
+}
+
+.probe_stimulus {
+    font-size: 48px;
+    font-family: monospace;
+}
+
+.timer {
+    font-size: 24px;
+    font-weight: bold;
+    color: #c0392b;
+    font-family: monospace;
+    border: 3px solid black;
+    border-radius: 2px;
+    display: inline-block;
+    padding: 5px 10px;
 }

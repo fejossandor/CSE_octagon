@@ -1,0 +1,1462 @@
+[
+    [
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 0,
+            "id": 0,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 0,
+            "id": 0,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 0,
+            "id": 1,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 0,
+            "id": 1,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 0,
+            "id": 2,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 0,
+            "id": 2,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 0,
+            "id": 3,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 0,
+            "id": 3,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 0,
+            "id": 4,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 0,
+            "id": 4,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 0,
+            "id": 5,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 0,
+            "id": 5,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 0,
+            "id": 6,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 0,
+            "id": 6,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 0,
+            "id": 7,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 0,
+            "id": 7,
+            "correct_response": "j"
+        }
+    ],
+    [
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 1,
+            "id": 0,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 1,
+            "id": 0,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 1,
+            "id": 1,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 1,
+            "id": 1,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 1,
+            "id": 2,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 1,
+            "id": 2,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 1,
+            "id": 3,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 1,
+            "id": 3,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 1,
+            "id": 4,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 1,
+            "id": 4,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 1,
+            "id": 5,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 1,
+            "id": 5,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 1,
+            "id": 6,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 1,
+            "id": 6,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 1,
+            "id": 7,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 1,
+            "id": 7,
+            "correct_response": "j"
+        }
+    ],
+    [
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 2,
+            "id": 0,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 2,
+            "id": 0,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 2,
+            "id": 1,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 2,
+            "id": 1,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 2,
+            "id": 2,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 2,
+            "id": 2,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 2,
+            "id": 3,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 2,
+            "id": 3,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 2,
+            "id": 4,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 2,
+            "id": 4,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 2,
+            "id": 5,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 2,
+            "id": 5,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 2,
+            "id": 6,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 2,
+            "id": 6,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 2,
+            "id": 7,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 2,
+            "id": 7,
+            "correct_response": "n"
+        }
+    ],
+    [
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 3,
+            "id": 0,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 3,
+            "id": 0,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 3,
+            "id": 1,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 3,
+            "id": 1,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 3,
+            "id": 2,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 3,
+            "id": 2,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 3,
+            "id": 3,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 3,
+            "id": 3,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 3,
+            "id": 4,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 3,
+            "id": 4,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 3,
+            "id": 5,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 3,
+            "id": 5,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 3,
+            "id": 6,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 3,
+            "id": 6,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 3,
+            "id": 7,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 3,
+            "id": 7,
+            "correct_response": "n"
+        }
+    ],
+    [
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 4,
+            "id": 0,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 4,
+            "id": 0,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 4,
+            "id": 1,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 4,
+            "id": 1,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 4,
+            "id": 2,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 4,
+            "id": 2,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 4,
+            "id": 3,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 4,
+            "id": 3,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 4,
+            "id": 4,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 4,
+            "id": 4,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 4,
+            "id": 5,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 4,
+            "id": 5,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 4,
+            "id": 6,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 4,
+            "id": 6,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 4,
+            "id": 7,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 4,
+            "id": 7,
+            "correct_response": "j"
+        }
+    ],
+    [
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 5,
+            "id": 0,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 5,
+            "id": 0,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 5,
+            "id": 1,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 5,
+            "id": 1,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 5,
+            "id": 2,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 5,
+            "id": 2,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 5,
+            "id": 3,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 5,
+            "id": 3,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 5,
+            "id": 4,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 5,
+            "id": 4,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 5,
+            "id": 5,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 5,
+            "id": 5,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 5,
+            "id": 6,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 5,
+            "id": 6,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 5,
+            "id": 7,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 5,
+            "id": 7,
+            "correct_response": "j"
+        }
+    ],
+    [
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 6,
+            "id": 0,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 6,
+            "id": 0,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 6,
+            "id": 1,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 6,
+            "id": 1,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 6,
+            "id": 2,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 6,
+            "id": 2,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 6,
+            "id": 3,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 6,
+            "id": 3,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 6,
+            "id": 4,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 6,
+            "id": 4,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 6,
+            "id": 5,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 6,
+            "id": 5,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 6,
+            "id": 6,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 6,
+            "id": 6,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 6,
+            "id": 7,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 6,
+            "id": 7,
+            "correct_response": "n"
+        }
+    ],
+    [
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 7,
+            "id": 0,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 7,
+            "id": 0,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 7,
+            "id": 1,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 7,
+            "id": 1,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 7,
+            "id": 2,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 7,
+            "id": 2,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 7,
+            "id": 3,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 7,
+            "id": 3,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 7,
+            "id": 4,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 7,
+            "id": 4,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 7,
+            "id": 5,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 7,
+            "id": 5,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 7,
+            "id": 6,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 7,
+            "id": 6,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 7,
+            "id": 7,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 7,
+            "id": 7,
+            "correct_response": "j"
+        }
+    ],
+    [
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 8,
+            "id": 0,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 8,
+            "id": 0,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 8,
+            "id": 1,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 8,
+            "id": 1,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 8,
+            "id": 2,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 8,
+            "id": 2,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 8,
+            "id": 3,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 8,
+            "id": 3,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 8,
+            "id": 4,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 8,
+            "id": 4,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 8,
+            "id": 5,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 8,
+            "id": 5,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 8,
+            "id": 6,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 8,
+            "id": 6,
+            "correct_response": "j"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 8,
+            "id": 7,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 8,
+            "id": 7,
+            "correct_response": "j"
+        }
+    ],
+    [
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 9,
+            "id": 0,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 9,
+            "id": 0,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 9,
+            "id": 1,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Y",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 9,
+            "id": 1,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 9,
+            "id": 2,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 9,
+            "id": 2,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 9,
+            "id": 3,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 9,
+            "id": 3,
+            "correct_response": "n"
+        },
+        {
+            "prime": "B",
+            "probe": "A",
+            "ind_diag": "inducer",
+            "condition": "IC",
+            "block": 9,
+            "id": 4,
+            "correct_response": "f"
+        },
+        {
+            "prime": "Z",
+            "probe": "Z",
+            "ind_diag": "diagnostic",
+            "condition": "IC",
+            "block": 9,
+            "id": 4,
+            "correct_response": "n"
+        },
+        {
+            "prime": "A",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "II",
+            "block": 9,
+            "id": 5,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "II",
+            "block": 9,
+            "id": 5,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CC",
+            "block": 9,
+            "id": 6,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Y",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CC",
+            "block": 9,
+            "id": 6,
+            "correct_response": "j"
+        },
+        {
+            "prime": "B",
+            "probe": "B",
+            "ind_diag": "inducer",
+            "condition": "CI",
+            "block": 9,
+            "id": 7,
+            "correct_response": "g"
+        },
+        {
+            "prime": "Z",
+            "probe": "Y",
+            "ind_diag": "diagnostic",
+            "condition": "CI",
+            "block": 9,
+            "id": 7,
+            "correct_response": "j"
+        }
+    ]
+]
