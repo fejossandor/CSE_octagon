@@ -29,7 +29,7 @@ var probe_index = 0;
 var WelcomeTrial = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-    <h2>Üdvözlünk a Metatudomány kutatócsoport vizsgálatában!</h2>
+    <h2>Üdvözlünk a Metatudomány Kutatócsoport vizsgálatában!</h2>
     <p>Egy tudományos kutatásban veszel részt, amelynek vezetője Bognár Miklós, az ELTE Affektív Pszichológia Tanszékének kutatója.
     A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
     <h3>Részvétel</h3>
@@ -159,10 +159,12 @@ var practiceEnd = {
 
 };
 
+
 var blockEnd = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `<pstyle = "text-align: center; max-width: 800px; margin: auto; font-size: 24px" > A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit, legfeljebb 2 perc áll rendelkezésedre. Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`,
-    choices: "ALL_KEYS"
+    choices: "ALL_KEYS",
+    stimulus_duration: 120000
 }
 
 // -------------------------------
@@ -228,6 +230,16 @@ function startExperiment() {
 
 
     for (let i = 0; i < my_trials.length; i++) {
+
+        var blockStart = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `<h1>${i + 1}. Blokk kezdődik</h1>`,
+            trial_duration: 2000,
+            choices: "NO_KEYS"
+        }
+
+        experimental_blocks.push(blockStart)
+
         if (longFirst == true) {
             if (i < my_trials.length - 5) {
                 experimental_blocks.push({
@@ -240,7 +252,6 @@ function startExperiment() {
                     timeline: [prime, short_isi, probe, short_isi_blank],
                     timeline_variables: my_trials[i]
                 })
-                if (i < my_trials.length - 1) { experimental_blocks.push(blockEnd) }
             }
         }
         else {
@@ -255,11 +266,11 @@ function startExperiment() {
                     timeline: [prime, long_isi, probe, long_isi_blank],
                     timeline_variables: my_trials[i]
                 })
-                if (i < my_trials.length - 1) { experimental_blocks.push(blockEnd) }
             }
         }
-    }
 
+        if (i < my_trials.length - 1) { experimental_blocks.push(blockEnd) }
+    }
 
 
 
@@ -268,11 +279,14 @@ function startExperiment() {
         IntroTrial,
         practiceStart,
         practiceEnd,
-        experimental_blocks,
+        ...experimental_blocks, //- this unpacking operator is some pretty cool shit
         debriefTrial
     );
+    //console.log(experimental_blocks[0].timeline_variables[0])
     jsPsych.run(timeline)
-    console.log(experimental_blocks[0].timeline_variables[0])
+    console.log(experimental_blocks[1].timeline_variables[1])
+    console.log(experimental_blocks)
+    console.log(timeline)
 }
 
 loadExperiment()
