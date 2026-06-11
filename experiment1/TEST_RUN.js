@@ -1,8 +1,14 @@
+
 var jsPsych = initJsPsych({
     on_finish: function () {
         jsPsych.data.displayData();
+        jsPsych.data.get().localSave('csv', `octagon_participant_${participant_id}.csv`)
     }
 });
+
+
+var participant_id = jsPsych.randomization.randomID(2);
+jsPsych.data.addProperties({ participant: participant_id });
 
 let my_trials;
 // This is a temporary solution --> the code works if you run it on a python server
@@ -15,6 +21,10 @@ async function loadExperiment() {
 }
 
 
+
+
+
+
 var probe_duration = 1600;
 var prime_duration = 200;
 var long_isi_duration = 1000;
@@ -24,6 +34,18 @@ var short_isi_blank_duration = 2567;
 var probe_stim_duration = 200;
 var timeline = [];
 var probe_index = 0;
+
+var debug = new URLSearchParams(window.location.search).get('debug') === '1'
+
+if (debug) {
+    short_isi_duration = 1;
+    long_isi_duration = 1;
+    short_isi_blank_duration = 1;
+    long_isi_blank_duration = 1;
+    probe_duration = 1;
+    prime_duration = 1;
+}
+
 
 // Welcome
 var WelcomeTrial = {
@@ -84,15 +106,6 @@ var probe = {
     }
 };
 
-/*var fixation = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<div style="font-size:60px;">+</div>',
-    choices: "NO_KEYS",
-    trial_duration: 2000,
-    data: {
-        task: 'fixation'
-    }
-};*/
 
 var long_isi = {
     type: jsPsychHtmlKeyboardResponse,
@@ -160,11 +173,38 @@ var practiceEnd = {
 };
 
 
-var blockEnd = {
+blockEnd = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: `<pstyle = "text-align: center; max-width: 800px; margin: auto; font-size: 24px" > A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit, legfeljebb 2 perc áll rendelkezésedre. Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`,
+    stimulus: `
+        <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
+        A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit.
+        Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a folytatáshoz!</p>
+        <p style="font-size: 32px;">Hátralévő idő: <span id="timer">2:00</span></p>
+    `,
     choices: "ALL_KEYS",
-    stimulus_duration: 120000
+    trial_duration: 120000, // trial auto-ends after 2 minutes
+    on_load: function () {
+        var timeLeft = 120; // seconds
+        var timerElement = document.getElementById('timer');
+
+        var countdown = setInterval(function () {
+            timeLeft--;
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+            timerElement.innerHTML = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+            }
+        }, 1000);
+
+        
+        jsPsych.getCurrentTrial().countdown_id = countdown;
+    },
+    on_finish: function () {
+        
+        clearInterval(jsPsych.getCurrentTrial().countdown_id);
+    }
 }
 
 // -------------------------------
@@ -188,16 +228,14 @@ var debriefTrial = {
     choices: "ALL_KEYS"
 };
 
-var debug = 0;
-
 
 // Creating the practice block
 /*i = Math.floor(Math.random() * 100) + 1;
 var path = '../randomized/practice/p_experiment_' + i + '.json';
-
-
+ 
+ 
 var practice_block;
-
+ 
 fetch(path)
     .then(response => response.json())
     .then(data => {
@@ -205,22 +243,26 @@ fetch(path)
         data = practice_block;
     })
     .catch(error => console.log('Error loading file: ', error));
-
+ 
 // ?? eddig tuti jo 
-
+ 
 // ?? innentol ?
 */
 /*var trial_sequence = {
     timeline: [prime, isi, probe, fixation],
     timeline_variables: my_trials
 };
-
+ 
 timeline.push(
     WelcomeTrial,
     IntroTrial,
     practiceStart,
     trial_sequence
 );*/
+
+
+
+
 function startExperiment() {
 
 
