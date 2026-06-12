@@ -164,7 +164,7 @@ practice_experiments = []
 
 
 for practice in range(100):
-   practice_blocks = [10]  
+   practice_blocks = [] 
    
     
    for block in range(1):
@@ -306,7 +306,7 @@ for practice in range(100):
          
       practice_blocks.append(trials)
    practice_experiments.append(all_blocks)
-   with open(f"C:\ELTE_ST\Additional_research_activity\Python_practice\experiment1\Practice_trials\practice_trial_sequence{practice+1}.json", "w") as f:
+   with open(f"C:\ELTE_ST\Additional_research_activity\Python_practice\experiment1\Practice_trials\practice_trial_sequence_{practice+1}.json", "w") as f:
     json.dump(practice_blocks, f, indent = 4)
 
 

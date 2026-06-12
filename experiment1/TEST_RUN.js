@@ -12,17 +12,21 @@ jsPsych.data.addProperties({ participant: participant_id });
 
 var experimental_trials;
 var practice_trials;
+var practice_passed = false
 // This is a temporary solution --> the code works if you run it on a python server
 //In the fetch section --> you should enter the server path from the directory in which the generated trials are stored
 async function loadExperiment() {
     var expNum = Math.floor(Math.random() * 100) + 1
-    var practice_response = await fetch(`http://localhost:8000/experiment1/Practice_trials/practice_trial_sequence${expNum}.json`)
-    var practice_trials = await practice_response.json
+    var practice_response = await fetch(`http://localhost:8000/experiment1/Practice_trials/\practice_trial_sequence_${expNum}.json`)
+    practice_trials = await practice_response.json();
+    console.log("right after fetch:", practice_trials)
 
     var response = await fetch(`http://localhost:8000/experiment1/Trial_sequences/experiment01/\p_experiment_${expNum}.json`);
     experimental_trials = await response.json();
     startExperiment();
 }
+console.log("one practice block:", practice_trials);
+//console.log("one practice trial:", practice_trials[0][0]);
 
 
 
@@ -244,59 +248,83 @@ var debriefTrial = {
 
 
 function startExperiment() {
-
     timeline.push(
         WelcomeTrial,
         IntroTrial,
         practiceStart)
 
-    /*let practice_procedure = [];
+    let practice_procedure = [];
 
-    for (let i = 0; i < experimental_trials.length; i++) {
+    for (let i = 0; i < practice_trials.length; i++) {
         //same for loop strategy as in the case of the experimental trials --> i represents the index of the given block
 
 
         /*very simple conditional function --> given that it is in a for loop --> if the 
         practice passed condtion is fulfilled --> return false, so it does not progress to the next practice block
         if the practice_passed condition is not fulfilled --> return true, so the for loop keeps going*/
-    /* var practice_block = {
-         timeline: [prime, long_isi, probe, long_isi_blank],
-         timeline_variables: practice_trials[i],
-         conditional_function: function () {
-             if (practice_passed == true) {
-                 return false
-             }
-             else { return true }
-         }
-     }
-     practice_procedure.push(practice_block)
+        var practice_block = {
+            timeline: [prime, long_isi, probe, long_isi_blank],
+            timeline_variables: practice_trials[i],
+            conditional_function: function () {
+                if (practice_passed == true) {
+                    return false
+                }
+                else { return true }
+            }
+        }
+        practice_procedure.push(practice_block)
 
-     //for the sake of easier understanding
-     var accuracy_check = {
-         timeline: 
-     }
 
-     var repeat_prac_meassage = {
-         type: jsPsychHtmlKeyboardResponse,
-         stimulus: `<p>Túl sokat hibáztál a gyakorló blokkban. Kérlek nyomd be a <span class= "key">SPACE</span> billentyűt,
+        //for the sake of easier understanding
+        var repeat_prac_meassage = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `<p>Túl sokat hibáztál a gyakorló blokkban. Kérlek nyomd be a <span class= "key">SPACE</span> billentyűt,
      hogy újrakezd a gyakorlást</p>`,
-         choices: [' ']
-     }
+            choices: [' ']
+        }
 
-     var repeat_prac_conditional = {
-         timeline: [repeat_prac_meassage],
-         conditional_function: function () {
-             var last_prac_trials = jsPsych.data.get().filter({ task: 'probe' }).last(practice_trials.length)
-             var n_correct = last_prac_trials.filter({ correct: true }).count();
-             var prop_corr = n_correct / practice_trials.length;
-             if (prop_corr < 0.8) {
-                 return true;
-             }
-             else { return false }
-         }
-     }
-     timeline.push(repeat_prac_conditional)
- }*/
+
+
+        var accuracy_check = {
+            timeline: [{
+                type: jsPsychHtmlKeyboardResponse,
+                stimulus: [],
+                trial_duration: 0,
+                choices: "NO_KEYS",
+                on_finish: function () {
+                    var last_prac_trials = jsPsych.data.get().filter({ task: 'probe' }).last(practice_trials[i].length)
+                    var n_correct = last_prac_trials.filter({ correct: true }).count();
+                    var prop_corr = n_correct / last_prac_trials.count();  //count should be used because by using jsPsych.data.get, it creates a DataCollection, not a string --> DataCollection has no length property, hence the count
+                    if (prop_corr < 0.8) {
+                        practice_passed = false;
+                    }
+                }
+            }],
+            conditional_function: function () {
+                if (practice_passed == true) {
+                    return false
+                }
+                else { return true }
+
+            }
+        }
+
+        practice_procedure.push(accuracy_check)
+        var repeat_prac = {
+            timeline: [repeat_prac_meassage],
+            conditional_function: function () {
+                if (practice_passed == true) {
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+
+        };
+        practice_procedure.push(repeat_prac)
+    }
+
+
 
 
 
@@ -352,15 +380,15 @@ function startExperiment() {
 
 
     timeline.push(
+        ...practice_procedure,
         practiceEnd,
         ...experimental_blocks, //- this unpacking operator is some pretty cool shit
         debriefTrial
     );
     jsPsych.run(timeline)
-    console.log(experimental_blocks[1].timeline_variables[1])
-    console.log(experimental_blocks)
-    console.log(timeline)
+
 }
 
 loadExperiment()
+
 
