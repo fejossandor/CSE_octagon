@@ -2,7 +2,7 @@
 var jsPsych = initJsPsych({
     on_finish: function () {
         jsPsych.data.displayData();
-        jsPsych.data.get().localSave('csv', `octagon_participant_${participant_id}.csv`)
+        jsPsych.data.get().filter({ collect: true }).ignore(['trial_type', 'plugin_version', 'participant', 'collect']).localSave('csv', `octagon_participant_${participant_id}.csv`)
     }
 });
 
@@ -25,8 +25,7 @@ async function loadExperiment() {
     experimental_trials = await response.json();
     startExperiment();
 }
-console.log("one practice block:", practice_trials);
-//console.log("one practice trial:", practice_trials[0][0]);
+
 
 
 
@@ -54,6 +53,7 @@ if (debug) {
     long_isi_blank_duration = 1;
     probe_duration = 1;
     prime_duration = 1;
+    practice_passed = true
 }
 
 
@@ -94,7 +94,8 @@ var prime = {
     choices: "NO_KEYS",
     trial_duration: prime_duration,
     data: {
-        task: "prime"
+        task: "prime",
+        collect: true
     }
 };
 
@@ -109,7 +110,8 @@ var probe = {
     response_ends_trial: false,
     data: {
         correct_response: jsPsych.timelineVariable('correct_response'),
-        task: "probe"
+        task: "probe",
+        collect: true
     },
     on_finish: function (data) {
         probe_index = probe_index + 1
@@ -201,6 +203,10 @@ blockEnd = {
     `,
     choices: "ALL_KEYS",
     trial_duration: 120000, // trial auto-ends after 2 minutes
+    /*
+    Timer - full Claude 
+
+    */
     on_load: function () {
         var timeLeft = 120; // seconds
         var timerElement = document.getElementById('timer');
@@ -352,6 +358,7 @@ function startExperiment() {
                 stimulus: [],
                 trial_duration: 0,
                 choices: "NO_KEYS",
+                data: { collect: true },
                 on_finish: function () {
                     var last_prac_trials = jsPsych.data.get().filter({ task: 'probe' }).last(practice_trials[i].length)
                     var n_correct = last_prac_trials.filter({ correct: true }).count();
@@ -401,7 +408,8 @@ function startExperiment() {
             type: jsPsychHtmlKeyboardResponse,
             stimulus: `<h1>${i + 1}. Blokk kezdődik</h1>`,
             trial_duration: 2000,
-            choices: "NO_KEYS"
+            choices: "NO_KEYS",
+            data: { collect: true }
         }
 
         experimental_blocks.push(blockStart)
