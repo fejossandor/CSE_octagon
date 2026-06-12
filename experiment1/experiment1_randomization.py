@@ -150,7 +150,7 @@ for experiment in range(100):
          
       all_blocks.append(trials)
    all_experiments.append(all_blocks)
-   with open(f"C:\ELTE_ST\Additional_research_activity\Python_practice\experiment1\Trial_sequences\experiment01\p_experiment_{experiment+1}.json", "w") as f:
+   with open(f"D:\ELTE_ST\Additional_research_activity\Python_practice\experiment1\Trial_sequences\experiment01\p_experiment_{experiment+1}.json", "w") as f:
     json.dump(all_blocks, f, indent = 4)
 print(trials)
 
@@ -167,7 +167,7 @@ for practice in range(100):
    practice_blocks = [] 
    
     
-   for block in range(1):
+   for block in range(10):
         
       #inducer_congruency = ["congruent"] * 16 + ["incongruent"] * 16
       #diagnostic_congruency = ["congruent"] * 16 + ["incongruent"] * 16
@@ -306,7 +306,7 @@ for practice in range(100):
          
       practice_blocks.append(trials)
    practice_experiments.append(all_blocks)
-   with open(f"C:\ELTE_ST\Additional_research_activity\Python_practice\experiment1\Practice_trials\practice_trial_sequence_{practice+1}.json", "w") as f:
+   with open(f"D:\ELTE_ST\Additional_research_activity\Python_practice\experiment1\Practice_trials\practice_trial_sequence_{practice+1}.json", "w") as f:
     json.dump(practice_blocks, f, indent = 4)
 
 
