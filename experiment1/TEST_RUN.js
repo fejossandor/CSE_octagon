@@ -79,6 +79,47 @@ let enterFullscreen = {
     button_label: "FOLYTATÁS"
 }
 
+//Declaration of consent 
+let consentTrial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [{
+        prompt: "A beleegyező nyilatkozatot elolvastam és beleegyezem a kutatásban való részvételbe.",
+        name: "Beleegyezés",
+        options: ['Igen', 'Nem'],
+        required: true
+    }],
+    data: { collect: true }
+}
+
+//Credentials 
+let neptunCodeTrial = {
+    type: jsPsychSurveyHtmlForm,
+    preamble: `<p>Kérlek add meg a Neptun-kódod! </p>`,
+    html: '<input type= "text" name="response" required>',
+    button_label: 'Folytatás',
+    data: { collect: true }
+}
+
+let genderTrial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [{
+        prompt: "Kérlek add meg a nemed!",
+        name: "Gender",
+        options: ['Férfi', 'Nő', 'Nem szeretném megadni', 'Egyéb'],
+        required: true,
+        data: { collect: true }
+    }]
+}
+
+let ageTrial = {
+    type: jsPsychSurveyHtmlForm,
+    preamble: '<p>Kérlek add meg az életkorod!</p>',
+    html: '<input type= "text" name= "response" required>',
+    button_label: 'Folytatás',
+    data: { collect: true }
+}
+
+
 // Intro
 let IntroTrial = {
     type: jsPsychHtmlKeyboardResponse,
@@ -90,7 +131,7 @@ let IntroTrial = {
     <p> Ammennyiben <b>A</b> betűt látsz, nyomd meg a <span class ='key'>F</span> billentyűt </p> <p>Ammennyiben <b>B</b> betűt látsz, nyomd meg a <span class ='key'>G</span> billentyűt </p> 
     <p>Ammennyiben <b>Y</b> betűt látsz, nyomd meg a <span class ='key'>J</span> billentyűt </p> 
     <p>Ammennyiben <b>Z</b> betűt látsz, nyomd meg a <span class ='key'>N</span> billentyűt </p>
-    <p> Ha készen állsz, nyomd meg a <span class ='key'>SPACE</span> billentyűt a gyakorló blokk elkezdéséhez.</p>
+    <p> Ha készen állsz, nyomd meg a <span class ='key'>SPACE</span> billentyűt a gyakorló blokk elkezdéséhez!</p>
     `,
     choices: [' ']
 };
@@ -259,7 +300,7 @@ var debriefTrial = {
     choices: "ALL_KEYS"
 };
 
-
+//Same conditional function logic as below --> timeline is only shown, if the n-2 object's response property is null - so they did not answer. Otherwise it is always skipped. 
 var too_slow = {
     timeline: [{
         type: jsPsychHtmlKeyboardResponse,
@@ -277,10 +318,33 @@ var too_slow = {
     }
 }
 
+if (debug) {
+    too_slow = {
+        timeline: [{
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: "<p> Túl lassú voltál. Kérlek törekedj arra, hogy minél gyorsabban válaszolj!</p>",
+            choices: 'ALL_KEYS',
+            trial_duration: "3000"
+        }],
+        conditional_function: function () {
+            let is_response = jsPsych.data.get().last(2).values()[0];
+            console.log(is_response);
+            if (is_response.response !== null) {
+                return false
+            }
+            else { return false }
+        }
+    }
+}
+
 function startExperiment() {
     timeline.push(
         WelcomeTrial,
         enterFullscreen,
+        consentTrial,
+        neptunCodeTrial,
+        genderTrial,
+        ageTrial,
         IntroTrial,
         practiceStart)
 
