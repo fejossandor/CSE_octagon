@@ -227,9 +227,6 @@ var practiceStart = {
     choices: "ALL_KEYS"
 };
 
-var practiceLoop = {
-
-}
 
 
 
@@ -241,7 +238,7 @@ var practiceEnd = {
 };
 
 
-blockEnd = {
+var blockEnd = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
         <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
@@ -304,17 +301,19 @@ var debriefTrial = {
 var too_slow = {
     timeline: [{
         type: jsPsychHtmlKeyboardResponse,
-        stimulus: "<p> Túl lassú voltál. Kérlek törekedj arra, hogy minél gyorsabban válaszolj!</p>",
+        stimulus: "<p> Túl lassú voltál vagy hibáztál. Kérlek törekedj arra, hogy minél gyorsabban, pontosabban válaszolj!</p>",
         choices: 'ALL_KEYS',
         trial_duration: "3000"
     }],
     conditional_function: function () {
         let is_response = jsPsych.data.get().last(2).values()[0];
         console.log(is_response);
-        if (is_response.response !== null) {
+        if (is_response.response == is_response.correct_response) {
             return false
         }
-        else { return true }
+        else {
+            return true
+        }
     }
 }
 
