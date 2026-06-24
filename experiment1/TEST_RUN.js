@@ -183,7 +183,7 @@ var long_isi = {
 
 var long_isi_blank = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<h2>+</h2>',
+    stimulus: '<h1>+</h1>',
     choices: "NO_KEYS",
     trial_duration: long_isi_blank_duration,
     data: {
@@ -203,7 +203,7 @@ var short_isi = {
 
 var short_isi_blank = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<h2>+</h2> ',
+    stimulus: '<h1>+</h1> ',
     choices: "NO_KEYS",
     trial_duration: short_isi_blank_duration,
     data: {
@@ -301,9 +301,15 @@ var debriefTrial = {
 var too_slow = {
     timeline: [{
         type: jsPsychHtmlKeyboardResponse,
-        stimulus: "<p> Túl lassú voltál vagy hibáztál. Kérlek törekedj arra, hogy minél gyorsabban, pontosabban válaszolj!</p>",
+        stimulus: function () {
+            var lastTrialResponse = jsPsych.data.get().last(1).values()[0];
+            if (lastTrialResponse.response == null) {
+                return '<p style="font-size:32px">Túl lassú voltál!</p>'
+            }
+            else { return '<pstyle="font-size:32px">Hibás válasz!</p>' }
+        },
         choices: 'ALL_KEYS',
-        trial_duration: "3000"
+        trial_duration: 3000
     }],
     conditional_function: function () {
         let is_response = jsPsych.data.get().last(1).values()[0];
