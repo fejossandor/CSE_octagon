@@ -17,11 +17,11 @@ var practice_passed = false
 //In the fetch section --> you should enter the server path from the directory in which the generated trials are stored
 async function loadExperiment() {
     var expNum = Math.floor(Math.random() * 100) + 1
-    var practice_response = await fetch(`http://localhost:8000/experiment1/Practice_trials/\practice_trial_sequence_${expNum}.json`)
+    var practice_response = await fetch(`http://localhost:8000/practice_trials/practice_trial_sequence_${expNum}.json`)
     practice_trials = await practice_response.json();
     console.log("right after fetch:", practice_trials)
 
-    var response = await fetch(`http://localhost:8000/experiment1/Trial_sequences/experiment01/\p_experiment_${expNum}.json`);
+    var response = await fetch(`http://localhost:8000/experimental_trials/p_experiment_${expNum}.json`);
     experimental_trials = await response.json();
     startExperiment();
 }
@@ -338,13 +338,13 @@ if (debug) {
 
 function startExperiment() {
     timeline.push(
-        //WelcomeTrial,
+        WelcomeTrial,
         //enterFullscreen,
         //consentTrial,
         //neptunCodeTrial,
         //genderTrial,
         //ageTrial,
-        //IntroTrial,
+        IntroTrial,
         practiceStart)
 
     let practice_procedure = [];

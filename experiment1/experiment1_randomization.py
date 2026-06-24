@@ -2,7 +2,10 @@ import numpy as np
 import pandas as pd
 import random
 import json
+import os
 
+os.mkdir("practice_trials")
+os.mkdir("experimental_trials")
 
 all_experiments = []
 
@@ -150,7 +153,7 @@ for experiment in range(100):
          
       all_blocks.append(trials)
    all_experiments.append(all_blocks)
-   with open(f"D:\ELTE_ST\Additional_research_activity\Python_practice\experiment1\Trial_sequences\experiment01\p_experiment_{experiment+1}.json", "w") as f:
+   with open(f"experimental_trials/p_experiment_{experiment+1}.json", "w") as f:
     json.dump(all_blocks, f, indent = 4)
 print(trials)
 
@@ -306,7 +309,7 @@ for practice in range(100):
          
       practice_blocks.append(trials)
    practice_experiments.append(all_blocks)
-   with open(f"D:\ELTE_ST\Additional_research_activity\Python_practice\experiment1\Practice_trials\practice_trial_sequence_{practice+1}.json", "w") as f:
+   with open(f"practice_trials/practice_trial_sequence_{practice+1}.json", "w") as f:
     json.dump(practice_blocks, f, indent = 4)
 
 
