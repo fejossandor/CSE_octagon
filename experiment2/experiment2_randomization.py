@@ -1,6 +1,6 @@
 import random
 import pandas as pd 
-import numpy as np 
+import numpy as np
 import json
 import os 
 
@@ -165,7 +165,8 @@ for experiment in range(100):
            "incongruency_level": inducer_prime_trial["incongruency_level"], 
            "block": inducer_prime_trial["block"], 
            "pair_id": inducer_prime_trial["pair_id"], 
-           "trial_order":trial_order[block]
+           "trial_order":trial_order[block], 
+           "ind_diag":"inducer"
            
          }
       diagnostic_trial = {
@@ -174,7 +175,8 @@ for experiment in range(100):
            "incongruency_level": inducer_probe_trial["incongruency_level"],  
            "block": inducer_probe_trial["block"], 
            "pair_id": inducer_probe_trial["pair_id"], 
-           "trial_order":trial_order[block]
+           "trial_order":trial_order[block], 
+           "ind_diag": "diagnostic"
          }
                 
       trials.append(inducer_trial)
@@ -183,9 +185,9 @@ for experiment in range(100):
     # ... end of the `for i` loop ...
 
      # swap pass: runs once, after all trials in this block exist
-    if trial_order[block] == "beta":
-        for trial in trials:
-         if trial["ind_diag"] == "inducer":
+     if trial_order[block] == "beta":
+      for trial in trials:
+       if trial["ind_diag"] == "inducer":
               # inducers: A -> Y, B -> Z
               new_prime = []
               for letter in trial["prime"]:
@@ -207,7 +209,7 @@ for experiment in range(100):
                     new_probe.append(letter)
               trial["probe"] = new_probe
 
-         elif trial["ind_diag"] == "diagnostic":
+       elif trial["ind_diag"] == "diagnostic":
               # diagnostics: Y -> A, Z -> B
               new_prime = []
               for letter in trial["prime"]:
@@ -229,7 +231,7 @@ for experiment in range(100):
                     new_probe.append(letter)
               trial["probe"] = new_probe
 
-    all_blocks.append(trials)
+       all_blocks.append(trials)
     all_experiments.append(all_blocks)
     with open(f"experimental_trials/p_experiment_{experiment+1}.json", "w") as f:
      json.dump(all_blocks, f, indent=4)
