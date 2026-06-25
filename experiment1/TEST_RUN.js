@@ -34,13 +34,13 @@ async function loadExperiment() {
 
 
 
-var probe_duration = 1600;
+var probe_duration = 1500;
+var probe_stim_duration = 200; //they had 1500ms to respond from target onset in exp1 -> exp3 is a modification of exp1 with 5 exceptions, so we ought to take into account what they did in exp1 if not specififed
 var prime_duration = 200;
 var long_isi_duration = 1000;
 var long_isi_blank_duration = 1600;
 var short_isi_duration = 33;
-var short_isi_blank_duration = 2567;
-var probe_stim_duration = 200;
+var short_isi_blank_duration = 1267;
 var timeline = [];
 var probe_index = 0;
 
