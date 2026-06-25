@@ -180,43 +180,56 @@ for experiment in range(100):
       trials.append(inducer_trial)
       trials.append(diagnostic_trial)
 
-      if inducer_trial["trial_order"] == "beta":
-          for inducer_trial in trials: 
-             new_prime = []
-             for letter in inducer_trial["prime"]:
-                if letter == "A":
-                   new_prime.append("Y")
-                elif letter == "B":
-                   new_prime.append("Z")
-             inducer_trial["prime"] = new_prime
-              
-             new_probe = []
-             for letter in inducer_trial["probe"]:
-                if letter == "A":
-                   new_probe.append("Y")
-                elif letter == "B":
-                   new_probe.append("Z")
-             inducer_trial["probe"] = new_probe
-      if diagnostic_trial["trial_order"] == "beta":
-          for diagnostic_trial in trials: 
-              new_prime2 = []
-              for letter in diagnostic_trial["prime"]:
-                if letter == "Y":
-                   new_prime2.append("A")
-                elif letter == "Z":
-                   new_prime2.append("B")
-              diagnostic_trial["prime"] = new_prime2
-              
-              new_probe2 = []
-              for letter in diagnostic_trial["probe"]:
-                if letter == "Y":
-                   new_probe2.append("A")
-                elif letter == "Z":
-                   new_probe2.append("B")
-              diagnostic_trial["probe"] = new_probe2
+    # ... end of the `for i` loop ...
 
+     # swap pass: runs once, after all trials in this block exist
+    if trial_order[block] == "beta":
+        for trial in trials:
+         if trial["ind_diag"] == "inducer":
+              # inducers: A -> Y, B -> Z
+              new_prime = []
+              for letter in trial["prime"]:
+                 if letter == "A":
+                    new_prime.append("Y")
+                 elif letter == "B":
+                    new_prime.append("Z")
+                 else:
+                    new_prime.append(letter)
+              trial["prime"] = new_prime
 
-     all_blocks.append(trials)
+              new_probe = []
+              for letter in trial["probe"]:
+                 if letter == "A":
+                    new_probe.append("Y")
+                 elif letter == "B":
+                    new_probe.append("Z")
+                 else:
+                    new_probe.append(letter)
+              trial["probe"] = new_probe
+
+         elif trial["ind_diag"] == "diagnostic":
+              # diagnostics: Y -> A, Z -> B
+              new_prime = []
+              for letter in trial["prime"]:
+                 if letter == "Y":
+                    new_prime.append("A")
+                 elif letter == "Z":
+                    new_prime.append("B")
+                 else:
+                    new_prime.append(letter)
+              trial["prime"] = new_prime
+
+              new_probe = []
+              for letter in trial["probe"]:
+                 if letter == "Y":
+                    new_probe.append("A")
+                 elif letter == "Z":
+                    new_probe.append("B")
+                 else:
+                    new_probe.append(letter)
+              trial["probe"] = new_probe
+
+    all_blocks.append(trials)
     all_experiments.append(all_blocks)
     with open(f"experimental_trials/p_experiment_{experiment+1}.json", "w") as f:
      json.dump(all_blocks, f, indent=4)
