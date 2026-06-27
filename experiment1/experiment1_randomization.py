@@ -12,12 +12,14 @@ all_experiments = []
 
 for experiment in range(100):
    all_blocks = []  
+
+   trial_order = ["alfa"]* 5 + ["beta"]* 5
+   random.shuffle(trial_order)
    
     
    for block in range(10):
         
-      #inducer_congruency = ["congruent"] * 16 + ["incongruent"] * 16
-      #diagnostic_congruency = ["congruent"] * 16 + ["incongruent"] * 16
+
       conditions = (
     [("incongruent", "congruent")] * 8 +
     [("congruent", "incongruent")] * 8 +
@@ -25,8 +27,6 @@ for experiment in range(100):
     [("incongruent", "incongruent")] * 8
 )
 
-     # random.shuffle(inducer_congruency)
-     # random.shuffle(diagnostic_congruency)
       random.shuffle(conditions)
         
       trials = []
@@ -124,14 +124,11 @@ for experiment in range(100):
            "ind_diag": inducer_prime_trial["ind_diag"], 
            "condition": inducer_prime_trial["condition"] , 
            "block": inducer_prime_trial["block"], 
-           "id": i
-           # "pair_id": inducer_prime_trial["pair_id"],
+           "id": i,
+           "trial_order":trial_order[block]
            
          }
-         if inducer_trial["probe"] == "A":
-           inducer_trial["correct_response"] = "f"
-         elif inducer_trial["probe"] == "B":
-           inducer_trial["correct_response"] = "g"
+         
          
          diagnostic_trial = {
            "prime": diagnostic_prime_trial["stimulus"],
@@ -139,17 +136,58 @@ for experiment in range(100):
            "ind_diag": diagnostic_probe_trial["ind_diag"],  
            "condition": diagnostic_probe_trial["condition"], 
            "block": diagnostic_probe_trial["block"], 
-           "id": i
-           #"pair_id": inducer_probe_trial["pair_id"]
+           "id": i, 
+           "trial_order":trial_order[block]
          }
 
-         if diagnostic_trial["probe"] == "Y":
-           diagnostic_trial["correct_response"] = "j"
-         elif diagnostic_trial["probe"] == "Z":
-           diagnostic_trial["correct_response"] = "n"
 
          trials.append(inducer_trial)
          trials.append(diagnostic_trial)
+      
+      if (trial_order[block] == "beta"):
+       for trial in trials:
+        if (trial["ind_diag"] == "inducer"):
+          new_prime = []
+          if (trial["prime"] == "A"):
+            new_prime.append("Y")
+          elif(trial["prime"] == "B"):
+            new_prime.append("Z")
+          trial["prime"] = new_prime[0]
+          new_probe = []
+          if(trial["probe"] == "A"):
+            new_probe.append("Y")
+          elif(trial["probe"] == "B"):
+            new_probe.append("Z")
+          trial["probe"] = new_probe[0]
+
+        elif (trial["ind_diag"] == "diagnostic"):
+          new_prime = []
+          if (trial["prime"] == "Y"):
+           new_prime.append("A")
+          elif(trial["prime"] == "Z"):
+            new_prime.append("B")
+          trial["prime"] = new_prime[0]
+          new_probe = []
+          if(trial["probe"] == "Y"):
+            new_probe.append("A")
+          elif(trial["probe"] == "Z"):
+            new_probe.append("B")
+          trial["probe"] = new_probe[0]
+
+      for trial in trials: 
+        new_cor = []
+        if (trial["probe"] == "Y"): 
+          new_cor.append("j")
+          trial["correct_response"] = new_cor[0]
+        elif (trial["probe"] == "Z"): 
+          new_cor.append("n")
+          trial["correct_response"] = new_cor[0]
+        elif (trial["probe"] == "A"):
+         new_cor.append("f")
+         trial["correct_response"] = new_cor[0]
+        elif (trial["probe"] == "B"):
+          new_cor.append("g")
+          trial["correct_response"] = new_cor[0]
          
       all_blocks.append(trials)
    all_experiments.append(all_blocks)
@@ -168,12 +206,14 @@ practice_experiments = []
 
 for practice in range(100):
    practice_blocks = [] 
+
+   trial_order = ["alfa"]* 5 + ["beta"]* 5
+   random.shuffle(trial_order)
    
     
    for block in range(10):
         
-      #inducer_congruency = ["congruent"] * 16 + ["incongruent"] * 16
-      #diagnostic_congruency = ["congruent"] * 16 + ["incongruent"] * 16
+      
       conditions = (
     [("incongruent", "congruent")] * 2 +
     [("congruent", "incongruent")] * 2 +
@@ -181,8 +221,7 @@ for practice in range(100):
     [("incongruent", "incongruent")] * 2
 )
 
-     # random.shuffle(inducer_congruency)
-     # random.shuffle(diagnostic_congruency)
+     
       random.shuffle(conditions)
         
       trials = []
@@ -280,14 +319,11 @@ for practice in range(100):
            "ind_diag": inducer_prime_trial["ind_diag"], 
            "condition": inducer_prime_trial["condition"] , 
            "block": inducer_prime_trial["block"], 
-           "id": i
-           # "pair_id": inducer_prime_trial["pair_id"],
+           "id": i, 
+           "trial_order":trial_order[block]
+           
            
          }
-         if inducer_trial["probe"] == "A":
-           inducer_trial["correct_response"] = "f"
-         elif inducer_trial["probe"] == "B":
-           inducer_trial["correct_response"] = "g"
          
          diagnostic_trial = {
            "prime": diagnostic_prime_trial["stimulus"],
@@ -295,17 +331,58 @@ for practice in range(100):
            "ind_diag": diagnostic_probe_trial["ind_diag"],  
            "condition": diagnostic_probe_trial["condition"], 
            "block": diagnostic_probe_trial["block"], 
-           "id": i
-           #"pair_id": inducer_probe_trial["pair_id"]
+           "id": i, 
+           "trial_order":trial_order[block]
+           
          }
-
-         if diagnostic_trial["probe"] == "Y":
-           diagnostic_trial["correct_response"] = "j"
-         elif diagnostic_trial["probe"] == "Z":
-           diagnostic_trial["correct_response"] = "n"
+           
 
          trials.append(inducer_trial)
          trials.append(diagnostic_trial)
+      if (trial_order[block] == "beta"):
+       for trial in trials:
+        if (trial["ind_diag"] == "inducer"):
+          new_prime = []
+          if (trial["prime"] == "A"):
+            new_prime.append("Y")
+          elif(trial["prime"] == "B"):
+            new_prime.append("Z")
+          trial["prime"] = new_prime[0]
+          new_probe = []
+          if(trial["probe"] == "A"):
+            new_probe.append("Y")
+          elif(trial["probe"] == "B"):
+            new_probe.append("Z")
+          trial["probe"] = new_probe[0]
+
+        elif (trial["ind_diag"] == "diagnostic"):
+          new_prime = []
+          if (trial["prime"] == "Y"):
+           new_prime.append("A")
+          elif(trial["prime"] == "Z"):
+            new_prime.append("B")
+          trial["prime"] = new_prime[0]
+          new_probe = []
+          if(trial["probe"] == "Y"):
+            new_probe.append("A")
+          elif(trial["probe"] == "Z"):
+            new_probe.append("B")
+          trial["probe"] = new_probe[0]
+
+      for trial in trials: 
+        new_cor = []
+        if (trial["probe"] == "Y"): 
+          new_cor.append("j")
+          trial["correct_response"] = new_cor[0]
+        elif (trial["probe"] == "Z"): 
+          new_cor.append("n")
+          trial["correct_response"] = new_cor[0]
+        elif (trial["probe"] == "A"):
+         new_cor.append("f")
+         trial["correct_response"] = new_cor[0]
+        elif (trial["probe"] == "B"):
+          new_cor.append("g")
+          trial["correct_response"] = new_cor[0]
          
       practice_blocks.append(trials)
    practice_experiments.append(all_blocks)

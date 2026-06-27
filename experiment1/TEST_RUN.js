@@ -46,12 +46,13 @@ var probe_index = 0;
 var debug = new URLSearchParams(window.location.search).get('debug') === '1'
 
 if (debug) {
-    short_isi_duration = 1;
-    long_isi_duration = 1;
-    short_isi_blank_duration = 1;
-    long_isi_blank_duration = 1;
-    probe_duration = 1;
-    prime_duration = 1;
+    var fixation_duration = 1
+    var pre_fix_blank_short_isi = 1
+    var probe_duration = 1;
+    var probe_stim_duration = 1;
+    var prime_duration = 1;
+    var long_isi_duration = 1;
+    var short_isi_duration = 1;
     practice_passed = true
 }
 
@@ -194,31 +195,11 @@ var long_isi = {
 
 
 
-var long_isi_blank = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: '',
-    choices: "NO_KEYS",
-    trial_duration: long_isi_blank_duration,
-    data: {
-        task: "blank"
-    }
-}
-
 var short_isi = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: '',
     choices: "NO_KEYS",
     trial_duration: short_isi_duration,
-    data: {
-        task: "blank"
-    }
-}
-
-var short_isi_blank = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: '',
-    choices: "NO_KEYS",
-    trial_duration: short_isi_blank_duration,
     data: {
         task: "blank"
     }
