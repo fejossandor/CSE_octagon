@@ -1,4 +1,3 @@
-
 var jsPsych = initJsPsych({
     on_finish: function () {
         jsPsych.data.displayData();
@@ -10,6 +9,23 @@ var jsPsych = initJsPsych({
 var participant_id = jsPsych.randomization.randomID(2);
 jsPsych.data.addProperties({ participant: participant_id });
 
+
+var mygrid = `
+<div class="gridContainer">
+        <div class="stimulusGrid">
+        <div class="stimulus pos0">A</div>
+        <div class="stimulus pos1">A</div>
+        <div class="stimulus pos2">A</div>
+        <div class="stimulus pos3">A</div>
+        <div class="stimulus pos4">A</div>
+        <div class="stimulus pos5">A</div>
+        <div class="stimulus pos6">A</div>
+        <div class="stimulus pos7">A</div>
+        <div class="center pos8">A</div>
+        <div class="stimulus pos9">A</div>
+        <div class="stimulus pos10">A</div>
+    </div>
+    </div>`
 var experimental_trials;
 var practice_trials;
 var practice_passed = false
@@ -17,11 +33,11 @@ var practice_passed = false
 //In the fetch section --> you should enter the server path from the directory in which the generated trials are stored
 async function loadExperiment() {
     var expNum = Math.floor(Math.random() * 100) + 1
-    var practice_response = await fetch(`http://localhost:8000/practice_trials/practice_trial_sequence_${expNum}.json`)
+    var practice_response = await fetch(`http://localhost:8000/experiment2/practice_trials/p_practice_${expNum}.json`)
     practice_trials = await practice_response.json();
     console.log("right after fetch:", practice_trials)
 
-    var response = await fetch(`http://localhost:8000/experimental_trials/p_experiment_${expNum}.json`);
+    var response = await fetch(`http://localhost:8000/experiment2/experimental_trials/p_experiment_${expNum}.json`);
     experimental_trials = await response.json();
     startExperiment();
 }
@@ -29,18 +45,10 @@ async function loadExperiment() {
 
 
 
-
-
-
-
-
-var probe_duration = 1500;
-var probe_stim_duration = 200; //they had 1500ms to respond from target onset in exp1 -> exp3 is a modification of exp1 with 5 exceptions, so we ought to take into account what they did in exp1 if not specififed
-var prime_duration = 200;
-var long_isi_duration = 1000;
-var long_isi_blank_duration = 1600;
-var short_isi_duration = 33;
-var short_isi_blank_duration = 1267;
+var probe_duration = 1800;
+var probe_stim_duration = 200;
+var prime_duration = 1400;
+var isi_blank_duration = 1600;
 var timeline = [];
 var probe_index = 0;
 
@@ -126,8 +134,8 @@ let IntroTrial = {
     stimulus: `
     <h2> A feladatod az lesz, hogy a megjelenő ingernek megfelelő gombot nyomd le olyan gyorsan, amilyen gyorsan csak tudod </h2>
     <p><b>Kérlek helyezd a bal középső ujjad a <span class ='key'>F</span> billentyűre, a bal mutató ujjad a <span class ='key'>G</span> billentyűre, a jobb középső ujjad a <span class ='key'>J</span> billentyűre, a jobb mutató ujjad a <span class ='key'>N</span> billentyűre.</b></p>
-    <p> Először egy nagyobb méretű betűt fogsz látni, amelyre <b> nem kell reagálnod</b> </p> 
-    <p> Ezt követően rövid ideig fehér képernyőt fogsz látni, majd megjelenik az a betű, amelyre reagálnod kell</p>
+    <p> Először 8 nagyobb méretű betűt fogsz látni, amelyekre <b> nem kell reagálnod</b> </p> 
+    <p> Ezt követően jelenik meg középen az a betű, amelyre reagálnod kell </p>
     <p> Ammennyiben <b>A</b> betűt látsz, nyomd meg a <span class ='key'>F</span> billentyűt </p> <p>Ammennyiben <b>B</b> betűt látsz, nyomd meg a <span class ='key'>G</span> billentyűt </p> 
     <p>Ammennyiben <b>Y</b> betűt látsz, nyomd meg a <span class ='key'>J</span> billentyűt </p> 
     <p>Ammennyiben <b>Z</b> betűt látsz, nyomd meg a <span class ='key'>N</span> billentyűt </p>
@@ -138,7 +146,7 @@ let IntroTrial = {
 
 var prime = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: function () { return `<span class = "prime_stimulus">${jsPsych.evaluateTimelineVariable('prime')}</span>` },
+    stimulus: mygrid,
     choices: "NO_KEYS",
     trial_duration: prime_duration,
     data: {
@@ -150,7 +158,7 @@ var prime = {
 var probe = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
-        return `<span class="probe_stimulus">${jsPsych.evaluateTimelineVariable('probe')}</span>`
+        return mygrid
     },
     choices: 'ALL_KEYS',
     stimulus_duration: probe_stim_duration,
@@ -169,47 +177,17 @@ var probe = {
 };
 
 
-var long_isi = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: ' ',
-    choices: "NO_KEYS",
-    trial_duration: long_isi_duration,
-    data: {
-        task: "blank"
-    }
-}
 
-
-
-var long_isi_blank = {
+var isi_blank = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: '<h1>+</h1>',
     choices: "NO_KEYS",
-    trial_duration: long_isi_blank_duration,
+    trial_duration: isi_blank_duration,
     data: {
         task: "blank"
     }
 }
 
-var short_isi = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: ' ',
-    choices: "NO_KEYS",
-    trial_duration: short_isi_duration,
-    data: {
-        task: "blank"
-    }
-}
-
-var short_isi_blank = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<h1>+</h1> ',
-    choices: "NO_KEYS",
-    trial_duration: short_isi_blank_duration,
-    data: {
-        task: "blank"
-    }
-}
 
 var goodbye = {
     type: jsPsychHtmlKeyboardResponse,
@@ -424,7 +402,7 @@ function startExperiment() {
 
     for (let i = 0; i < practice_trials.length; i++) {
         var practice_block = {
-            timeline: [long_isi_blank, prime, long_isi, probe, too_slow], //What runs
+            timeline: [prime, probe, isi_blank, too_slow], //What runs
             timeline_variables: practice_trials[i],
             conditional_function: function () { //Whether it runs
                 if (practice_passed == true) {
@@ -488,64 +466,9 @@ function startExperiment() {
 
 
 
-
-
-
-    let experimental_blocks = [];
-
-    let longFirst = (Math.floor(Math.random() * 2)) == 1
-
-
-    for (let i = 0; i < experimental_trials.length; i++) {
-
-        var blockStart = {
-            type: jsPsychHtmlKeyboardResponse,
-            stimulus: `<h1>${i + 1}. Blokk kezdődik</h1>`,
-            trial_duration: 2000,
-            choices: "NO_KEYS",
-            data: { collect: true }
-        }
-
-        experimental_blocks.push(blockStart)
-
-        if (longFirst == true) {
-            if (i < experimental_trials.length - 5) {
-                experimental_blocks.push({
-                    timeline: [prime, long_isi, probe, long_isi_blank],
-                    timeline_variables: experimental_trials[i]
-                })
-            }
-            else {
-                experimental_blocks.push({
-                    timeline: [prime, short_isi, probe, short_isi_blank],
-                    timeline_variables: experimental_trials[i]
-                })
-            }
-        }
-        else {
-            if (i < experimental_trials.length - 5) {
-                experimental_blocks.push({
-                    timeline: [prime, short_isi, probe, short_isi_blank],
-                    timeline_variables: experimental_trials[i]
-                })
-            }
-            else {
-                experimental_blocks.push({
-                    timeline: [prime, long_isi, probe, long_isi_blank],
-                    timeline_variables: experimental_trials[i]
-                })
-            }
-        }
-
-        if (i < experimental_trials.length - 1) { experimental_blocks.push(blockEnd) }
-    }
-
-
-
     timeline.push(
         ...practice_procedure,
         practiceEnd,
-        ...experimental_blocks, //- this unpacking operator is some pretty cool shit
         debriefTrial
     );
     jsPsych.run(timeline)

@@ -15,9 +15,7 @@ all_experiments = []
 for experiment in range(100):
     all_blocks = []
 
-    trial_order = ["alfa"] *5 + ["beta"]*5
-    random.shuffle(trial_order)
-
+   
 
     for block in range(10):
     
@@ -164,8 +162,7 @@ for experiment in range(100):
            "probe": inducer_probe_trial["stimulus"],
            "incongruency_level": inducer_prime_trial["incongruency_level"], 
            "block": inducer_prime_trial["block"], 
-           "pair_id": inducer_prime_trial["pair_id"], 
-           "trial_order":trial_order[block]
+           "pair_id": inducer_prime_trial["pair_id"]
            
          }
       diagnostic_trial = {
@@ -173,49 +170,13 @@ for experiment in range(100):
            "probe": diagnostic_probe_trial["stimulus"],
            "incongruency_level": inducer_probe_trial["incongruency_level"],  
            "block": inducer_probe_trial["block"], 
-           "pair_id": inducer_probe_trial["pair_id"], 
-           "trial_order":trial_order[block]
+           "pair_id": inducer_probe_trial["pair_id"]
          }
                 
       trials.append(inducer_trial)
       trials.append(diagnostic_trial)
 
-      if inducer_trial["trial_order"] == "beta":
-          for inducer_trial in trials: 
-             new_prime = []
-             for letter in inducer_trial["prime"]:
-                if letter == "A":
-                   new_prime.append("Y")
-                elif letter == "B":
-                   new_prime.append("Z")
-             inducer_trial["prime"] = new_prime
-              
-             new_probe = []
-             for letter in inducer_trial["probe"]:
-                if letter == "A":
-                   new_probe.append("Y")
-                elif letter == "B":
-                   new_probe.append("Z")
-             inducer_trial["probe"] = new_probe
-      if diagnostic_trial["trial_order"] == "beta":
-          for diagnostic_trial in trials: 
-              new_prime2 = []
-              for letter in diagnostic_trial["prime"]:
-                if letter == "Y":
-                   new_prime2.append("A")
-                elif letter == "Z":
-                   new_prime2.append("B")
-              diagnostic_trial["prime"] = new_prime2
-              
-              new_probe2 = []
-              for letter in diagnostic_trial["probe"]:
-                if letter == "Y":
-                   new_probe2.append("A")
-                elif letter == "Z":
-                   new_probe2.append("B")
-              diagnostic_trial["probe"] = new_probe2
-
-
+     
      all_blocks.append(trials)
     all_experiments.append(all_blocks)
     with open(f"experimental_trials/p_experiment_{experiment+1}.json", "w") as f:
@@ -233,8 +194,7 @@ all_practice = []
 for practice in range(100):
     all_practice_blocks = []
 
-    trial_order = ["alfa"] *5 + ["beta"]*5
-    random.shuffle(trial_order)
+   
 
 
     for block in range(10):
@@ -379,8 +339,7 @@ for practice in range(100):
            "probe": inducer_probe_trial["stimulus"],
            "incongruency_level": inducer_prime_trial["incongruency_level"], 
            "block": inducer_prime_trial["block"], 
-           "pair_id": inducer_prime_trial["pair_id"], 
-           "trial_order":trial_order[block]
+           "pair_id": inducer_prime_trial["pair_id"]
            
          }
        diagnostic_trial = {
@@ -388,47 +347,13 @@ for practice in range(100):
            "probe": diagnostic_probe_trial["stimulus"],
            "incongruency_level": inducer_probe_trial["incongruency_level"], 
            "block": inducer_probe_trial["block"], 
-           "pair_id": inducer_probe_trial["pair_id"],
-           "trial_order":trial_order[block]
+           "pair_id": inducer_probe_trial["pair_id"]
          }
        
        practice_trials.append(inducer_trial)
        practice_trials.append(diagnostic_trial)
        
-       if inducer_trial["trial_order"] == "beta":
-          for inducer_trial in trials: 
-             new_prime = []
-             for letter in inducer_trial["prime"]:
-                if letter == "A":
-                   new_prime.append("Y")
-                elif letter == "B":
-                   new_prime.append("Z")
-             inducer_trial["prime"] = new_prime
-              
-             new_probe = []
-             for letter in inducer_trial["probe"]:
-                if letter == "A":
-                   new_probe.append("Y")
-                elif letter == "B":
-                   new_probe.append("Z")
-             inducer_trial["probe"] = new_probe
-       if diagnostic_trial["trial_order"] == "beta":
-          for diagnostic_trial in trials: 
-              new_prime2 = []
-              for letter in diagnostic_trial["prime"]:
-                if letter == "Y":
-                   new_prime2.append("A")
-                elif letter == "Z":
-                   new_prime2.append("B")
-              diagnostic_trial["prime"] = new_prime2
-              
-              new_probe2 = []
-              for letter in diagnostic_trial["probe"]:
-                if letter == "Y":
-                   new_probe2.append("A")
-                elif letter == "Z":
-                   new_probe2.append("B")
-              diagnostic_trial["probe"] = new_probe2
+      
                 
      all_practice_blocks.append(practice_trials)
     all_practice.append(all_practice_blocks)

@@ -1,0 +1,89 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.gridContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.stimulusGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.1fr 1fr 1fr 1fr 1fr;
+    ;
+    grid-template-rows: repeat(9, 1fr);
+
+    justify-items: center;
+    align-items: center;
+
+    width: 35vw;
+    height: 60vh;
+}
+
+.stimulus {
+    font-size: 48px;
+}
+
+.center {
+    font-size: 28px;
+}
+
+.pos0 {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.pos1 {
+    grid-column: 7;
+    grid-row: 2;
+}
+
+.pos2 {
+    grid-column: 8;
+    grid-row: 3;
+}
+
+.pos3 {
+    grid-column: 8;
+    grid-row: 7;
+}
+
+.pos4 {
+    grid-column: 7;
+    grid-row: 8;
+}
+
+.pos5 {
+    grid-column: 3;
+    grid-row: 8;
+}
+
+.pos6 {
+    grid-column: 2;
+    grid-row: 7;
+}
+
+.pos7 {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.pos8 {
+    grid-column: 5;
+    grid-row: 5;
+}
+
+.pos9 {
+    grid-column: 4;
+    grid-row: 5;
+}
+
+.pos10 {
+    grid-column: 6;
+    grid-row: 5;
+}
