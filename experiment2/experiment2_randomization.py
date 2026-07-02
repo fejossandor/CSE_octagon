@@ -1,6 +1,6 @@
 import random
 import pandas as pd 
-import numpy as np 
+import numpy as np
 import json
 import os 
 
@@ -15,9 +15,14 @@ all_experiments = []
 for experiment in range(100):
     all_blocks = []
 
-   
+    trial_order = ["alfa"] *5 + ["beta"]*5
+    random.shuffle(trial_order)
+    print(trial_order)
+
 
     for block in range(10):
+     
+     trial_order_block = trial_order[block]
     
      
      
@@ -41,151 +46,202 @@ for experiment in range(100):
      trials = []
 
      for i, (ind_c, diag_c) in enumerate(zip(inducer_congruency, diagnostic_congruency)): #???? 
-      inducer_prime_trial = {
-      "type": "jsPsychHtmlKeyboardResponse", 
-      "stimulus": [], 
-      "choices": [], 
-      "ind_diag": "inducer"
-      }
+         inducer_prime_trial = {
+         "type": "jsPsychHtmlKeyboardResponse", 
+         "stimulus": [], 
+         "choices": [], 
+         "ind_diag": "inducer"
+         }
 
-      inducer_probe_trial = {
-      "type": "jsPsychHtmlKeyboardResponse", 
-      "stimulus": [], 
-      "choices": [], 
-      "ind_diag": "inducer"
-      }
-      inducer_probe_trial["stimulus"] = random.choice([["A"], ["B"]])
-      inducer_prime_trial["pair_id"] = i
-      inducer_prime_trial["incongruency_level"] = ind_c
-      inducer_probe_trial["pair_id"] = i
-      inducer_probe_trial["incongruency_level"] = ind_c
-      if ind_c == "ic_level_0":
-         if inducer_probe_trial["stimulus"] == ["A"]:
-            inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "A", "A", "A"]
+         inducer_probe_trial = {
+         "type": "jsPsychHtmlKeyboardResponse", 
+         "stimulus": [], 
+         "choices": [], 
+         "ind_diag": "inducer"
+         }
+         inducer_probe_trial["stimulus"] = random.choice([["A"], ["B"]])
+         inducer_prime_trial["pair_id"] = i
+         inducer_prime_trial["incongruency_level"] = ind_c
+         inducer_probe_trial["pair_id"] = i
+         inducer_probe_trial["incongruency_level"] = ind_c
+         if ind_c == "ic_level_0":
+            if inducer_probe_trial["stimulus"] == ["A"]:
+               inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "A", "A", "A"]
+            else: 
+               inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "B", "B", "B"]
+         elif ind_c == "ic_level_1":
+            if inducer_probe_trial["stimulus"] == ["A"]:
+               inducer_prime_trial["stimulus"] = ["B", "A", "A", "A", "A", "A", "A", "A"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+            else:
+               inducer_prime_trial["stimulus"] = ["A", "B", "B", "B", "B", "B", "B", "B"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+         elif ind_c == "ic_level_2":
+            if inducer_probe_trial["stimulus"] == ["A"]:
+               inducer_prime_trial["stimulus"] = ["B", "B", "A", "A", "A", "A", "A", "A"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+            else:
+               inducer_prime_trial["stimulus"] = ["A", "A", "B", "B", "B", "B", "B", "B"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+         elif ind_c == "ic_level_3":
+            if inducer_probe_trial["stimulus"] == ["A"]:
+               inducer_prime_trial["stimulus"] = ["B", "B", "B", "A", "A", "A", "A", "A"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+            else:
+               inducer_prime_trial["stimulus"] = ["A", "A", "A", "B", "B", "B", "B", "B"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+         elif ind_c == "ic_level_4":
+            if inducer_probe_trial["stimulus"] == ["A"]:
+               inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "A", "A", "A", "A"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+            else:
+               inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "B", "B", "B", "B"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+         elif ind_c == "ic_level_5":
+            if inducer_probe_trial["stimulus"] == ["A"]:
+               inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "A", "A", "A"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+            else:
+               inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "B", "B", "B"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+         elif ind_c == "ic_level_6":
+            if inducer_probe_trial["stimulus"] == ["A"]:
+               inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "B", "A", "A"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+            else:
+               inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "A", "B", "B"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+         elif ind_c == "ic_level_7":
+            if inducer_probe_trial["stimulus"] == ["A"]:
+               inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "B", "B", "A"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+            else:
+               inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "A", "A", "B"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+         elif ind_c == "ic_level_8":
+            if inducer_probe_trial["stimulus"] == ["A"]:
+               inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "B", "B", "B"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+            else:
+               inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "A", "A", "A"]
+               random.shuffle(inducer_prime_trial["stimulus"])
+         
+
+         diagnostic_prime_trial = {
+            "type": "jsPsychHtmlKeyboardResponse", 
+            "stimulus": [], 
+            "choices": [], 
+            "ind_diag": "diagnostic"
+               }
+
+         diagnostic_probe_trial = {
+            "type": "jsPsychHtmlKeyboardResponse", 
+            "stimulus": [], 
+            "choices": [], 
+            "ind_diag": "diagnostic"
+            }
+         diagnostic_probe_trial["stimulus"] = random.choice([["Z"], ["Y"]])
+         diagnostic_prime_trial["class"] = "prime"
+         diagnostic_prime_trial["pair_id"] = i
+         diagnostic_prime_trial["incongruency_level"] = diag_c
+         diagnostic_probe_trial["class"] = "probe"
+         diagnostic_probe_trial["pair_id"] = i
+         diagnostic_probe_trial["incongruency_level"] = diag_c
+         inducer_prime_trial["block"] = block 
+         inducer_probe_trial["block"] = block 
+         diagnostic_prime_trial["block"] = block 
+         diagnostic_probe_trial["block"] = block 
+         if diag_c == "congruent":
+            if diagnostic_probe_trial["stimulus"] == ["Y"]:
+               diagnostic_prime_trial["stimulus"] = ["Y", "Y"]
+            else: 
+               diagnostic_prime_trial["stimulus"] = ["Z", "Z"]
          else: 
-            inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "B", "B", "B"]
-      elif ind_c == "ic_level_1":
-         if inducer_probe_trial["stimulus"] == ["A"]:
-            inducer_prime_trial["stimulus"] = ["B", "A", "A", "A", "A", "A", "A", "A"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-         else:
-            inducer_prime_trial["stimulus"] = ["A", "B", "B", "B", "B", "B", "B", "B"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-      elif ind_c == "ic_level_2":
-         if inducer_probe_trial["stimulus"] == ["A"]:
-            inducer_prime_trial["stimulus"] = ["B", "B", "A", "A", "A", "A", "A", "A"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-         else:
-            inducer_prime_trial["stimulus"] = ["A", "A", "B", "B", "B", "B", "B", "B"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-      elif ind_c == "ic_level_3":
-         if inducer_probe_trial["stimulus"] == ["A"]:
-            inducer_prime_trial["stimulus"] = ["B", "B", "B", "A", "A", "A", "A", "A"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-         else:
-            inducer_prime_trial["stimulus"] = ["A", "A", "A", "B", "B", "B", "B", "B"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-      elif ind_c == "ic_level_4":
-         if inducer_probe_trial["stimulus"] == ["A"]:
-            inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "A", "A", "A", "A"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-         else:
-            inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "B", "B", "B", "B"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-      elif ind_c == "ic_level_5":
-         if inducer_probe_trial["stimulus"] == ["A"]:
-            inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "A", "A", "A"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-         else:
-            inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "B", "B", "B"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-      elif ind_c == "ic_level_6":
-         if inducer_probe_trial["stimulus"] == ["A"]:
-            inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "B", "A", "A"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-         else:
-            inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "A", "B", "B"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-      elif ind_c == "ic_level_7":
-         if inducer_probe_trial["stimulus"] == ["A"]:
-            inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "B", "B", "A"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-         else:
-            inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "A", "A", "B"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-      elif ind_c == "ic_level_8":
-         if inducer_probe_trial["stimulus"] == ["A"]:
-            inducer_prime_trial["stimulus"] = ["B", "B", "B", "B", "B", "B", "B", "B"]
-            random.shuffle(inducer_prime_trial["stimulus"])
-         else:
-            inducer_prime_trial["stimulus"] = ["A", "A", "A", "A", "A", "A", "A", "A"]
-            random.shuffle(inducer_prime_trial["stimulus"])
+            if diagnostic_probe_trial["stimulus"] == ["Z"]:
+               diagnostic_prime_trial["stimulus"] = ["Y", "Y"]
+            else:
+               diagnostic_probe_trial["stimulus"] = ["Z", "Z"]
       
+         inducer_trial = {
+            "prime": inducer_prime_trial["stimulus"],
+            "probe": inducer_probe_trial["stimulus"],
+            "incongruency_level": inducer_prime_trial["incongruency_level"], 
+            "block": inducer_prime_trial["block"], 
+            "pair_id": inducer_prime_trial["pair_id"], 
+            "trial_order":trial_order_block, 
+            "ind_diag":"inducer"
+            
+            }
+         diagnostic_trial = {
+            "prime": diagnostic_prime_trial["stimulus"],
+            "probe": diagnostic_probe_trial["stimulus"],
+            "incongruency_level": inducer_probe_trial["incongruency_level"],  
+            "block": inducer_probe_trial["block"], 
+            "pair_id": inducer_probe_trial["pair_id"], 
+            "trial_order":trial_order_block, 
+            "ind_diag": "diagnostic"
+            }
+                  
+         trials.append(inducer_trial)
+         trials.append(diagnostic_trial)
 
-      diagnostic_prime_trial = {
-     "type": "jsPsychHtmlKeyboardResponse", 
-     "stimulus": [], 
-     "choices": [], 
-     "ind_diag": "diagnostic"
-      }
+    # ... end of the `for i` loop ...
 
-      diagnostic_probe_trial = {
-     "type": "jsPsychHtmlKeyboardResponse", 
-     "stimulus": [], 
-     "choices": [], 
-     "ind_diag": "diagnostic"
-     }
-      diagnostic_probe_trial["stimulus"] = random.choice([["Z"], ["Y"]])
-      diagnostic_prime_trial["class"] = "prime"
-      diagnostic_prime_trial["pair_id"] = i
-      diagnostic_prime_trial["incongruency_level"] = diag_c
-      diagnostic_probe_trial["class"] = "probe"
-      diagnostic_probe_trial["pair_id"] = i
-      diagnostic_probe_trial["incongruency_level"] = diag_c
-      inducer_prime_trial["block"] = block 
-      inducer_probe_trial["block"] = block 
-      diagnostic_prime_trial["block"] = block 
-      diagnostic_probe_trial["block"] = block 
-      if diag_c == "congruent":
-         if diagnostic_probe_trial["stimulus"] == ["Y"]:
-            diagnostic_prime_trial["stimulus"] = ["Y", "Y"]
-         else: 
-            diagnostic_prime_trial["stimulus"] = ["Z", "Z"]
-      else: 
-          if diagnostic_probe_trial["stimulus"] == ["Z"]:
-            diagnostic_prime_trial["stimulus"] = ["Y", "Y"]
-          else:
-            diagnostic_probe_trial["stimulus"] = ["Z", "Z"]
-   
-      inducer_trial = {
-           "prime": inducer_prime_trial["stimulus"],
-           "probe": inducer_probe_trial["stimulus"],
-           "incongruency_level": inducer_prime_trial["incongruency_level"], 
-           "block": inducer_prime_trial["block"], 
-           "pair_id": inducer_prime_trial["pair_id"]
-           
-         }
-      diagnostic_trial = {
-           "prime": diagnostic_prime_trial["stimulus"],
-           "probe": diagnostic_probe_trial["stimulus"],
-           "incongruency_level": inducer_probe_trial["incongruency_level"],  
-           "block": inducer_probe_trial["block"], 
-           "pair_id": inducer_probe_trial["pair_id"]
-         }
-                
-      trials.append(inducer_trial)
-      trials.append(diagnostic_trial)
+     # swap pass: runs once, after all trials in this block exist
+     if trial_order_block == "beta":
+      for trial in trials:
+       if trial["ind_diag"] == "inducer":
+              # inducers: A -> Y, B -> Z
+              new_prime = []
+              for letter in trial["prime"]:
+                 if letter == "A":
+                    new_prime.append("Y")
+                 elif letter == "B":
+                    new_prime.append("Z")
+                 else:
+                    new_prime.append(letter)
+              trial["prime"] = new_prime
 
-     
+              new_probe = []
+              for letter in trial["probe"]:
+                 if letter == "A":
+                    new_probe.append("Y")
+                 elif letter == "B":
+                    new_probe.append("Z")
+                 else:
+                    new_probe.append(letter)
+              trial["probe"] = new_probe
+
+       elif trial["ind_diag"] == "diagnostic":
+              # diagnostics: Y -> A, Z -> B
+              new_prime = []
+              for letter in trial["prime"]:
+                 if letter == "Y":
+                    new_prime.append("A")
+                 elif letter == "Z":
+                    new_prime.append("B")
+                 else:
+                    new_prime.append(letter)
+              trial["prime"] = new_prime
+
+              new_probe = []
+              for letter in trial["probe"]:
+                 if letter == "Y":
+                    new_probe.append("A")
+                 elif letter == "Z":
+                    new_probe.append("B")
+                 else:
+                    new_probe.append(letter)
+              trial["probe"] = new_probe
+
      all_blocks.append(trials)
     all_experiments.append(all_blocks)
     with open(f"experimental_trials/p_experiment_{experiment+1}.json", "w") as f:
      json.dump(all_blocks, f, indent=4)
 
-print(trials)
 print(len(trials))
 print(len(all_blocks))
-print(len(all_blocks[0]))
+print(trial_order)
 
 
 all_practice = []
@@ -194,7 +250,8 @@ all_practice = []
 for practice in range(100):
     all_practice_blocks = []
 
-   
+    trial_order = ["alfa"] *5 + ["beta"]*5
+    random.shuffle(trial_order)
 
 
     for block in range(10):
@@ -339,7 +396,8 @@ for practice in range(100):
            "probe": inducer_probe_trial["stimulus"],
            "incongruency_level": inducer_prime_trial["incongruency_level"], 
            "block": inducer_prime_trial["block"], 
-           "pair_id": inducer_prime_trial["pair_id"]
+           "pair_id": inducer_prime_trial["pair_id"], 
+           "trial_order":trial_order[block]
            
          }
        diagnostic_trial = {
@@ -347,13 +405,56 @@ for practice in range(100):
            "probe": diagnostic_probe_trial["stimulus"],
            "incongruency_level": inducer_probe_trial["incongruency_level"], 
            "block": inducer_probe_trial["block"], 
-           "pair_id": inducer_probe_trial["pair_id"]
+           "pair_id": inducer_probe_trial["pair_id"],
+           "trial_order":trial_order[block]
          }
        
        practice_trials.append(inducer_trial)
        practice_trials.append(diagnostic_trial)
        
-      
+     if trial_order_block == "beta":
+      for trial in trials:
+       if trial["ind_diag"] == "inducer":
+              new_prime = []
+              for letter in trial["prime"]:
+                 if letter == "A":
+                    new_prime.append("Y")
+                 elif letter == "B":
+                    new_prime.append("Z")
+                 else:
+                    new_prime.append(letter)
+              trial["prime"] = new_prime
+
+              new_probe = []
+              for letter in trial["probe"]:
+                 if letter == "A":
+                    new_probe.append("Y")
+                 elif letter == "B":
+                    new_probe.append("Z")
+                 else:
+                    new_probe.append(letter)
+              trial["probe"] = new_probe
+
+       elif trial["ind_diag"] == "diagnostic":
+              new_prime = []
+              for letter in trial["prime"]:
+                 if letter == "Y":
+                    new_prime.append("A")
+                 elif letter == "Z":
+                    new_prime.append("B")
+                 else:
+                    new_prime.append(letter)
+              trial["prime"] = new_prime
+
+              new_probe = []
+              for letter in trial["probe"]:
+                 if letter == "Y":
+                    new_probe.append("A")
+                 elif letter == "Z":
+                    new_probe.append("B")
+                 else:
+                    new_probe.append(letter)
+              trial["probe"] = new_probe
                 
      all_practice_blocks.append(practice_trials)
     all_practice.append(all_practice_blocks)

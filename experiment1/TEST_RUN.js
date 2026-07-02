@@ -33,26 +33,26 @@ async function loadExperiment() {
 
 
 
-
+var fixation_duration = 300
+var pre_fix_blank_short_isi = 967
 var probe_duration = 1500;
 var probe_stim_duration = 200; //they had 1500ms to respond from target onset in exp1 -> exp3 is a modification of exp1 with 5 exceptions, so we ought to take into account what they did in exp1 if not specififed
 var prime_duration = 200;
 var long_isi_duration = 1000;
-var long_isi_blank_duration = 1600;
 var short_isi_duration = 33;
-var short_isi_blank_duration = 1267;
 var timeline = [];
 var probe_index = 0;
 
 var debug = new URLSearchParams(window.location.search).get('debug') === '1'
 
 if (debug) {
-    short_isi_duration = 1;
-    long_isi_duration = 1;
-    short_isi_blank_duration = 1;
-    long_isi_blank_duration = 1;
-    probe_duration = 1;
-    prime_duration = 1;
+    var fixation_duration = 1
+    var pre_fix_blank_short_isi = 1
+    var probe_duration = 1;
+    var probe_stim_duration = 1;
+    var prime_duration = 1;
+    var long_isi_duration = 1;
+    var short_isi_duration = 1;
     practice_passed = true
 }
 
@@ -136,6 +136,20 @@ let IntroTrial = {
     choices: [' ']
 };
 
+var fixation = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: "<h1>+</h1>",
+    trial_duration: fixation_duration,
+    choices: "NO_KEYS"
+}
+
+var lead_in_blank = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '',
+    trial_duration: pre_fix_blank_short_isi,
+    choices: 'NO_KEYS'
+}
+
 var prime = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () { return `<span class = "prime_stimulus">${jsPsych.evaluateTimelineVariable('prime')}</span>` },
@@ -171,7 +185,7 @@ var probe = {
 
 var long_isi = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: ' ',
+    stimulus: '',
     choices: "NO_KEYS",
     trial_duration: long_isi_duration,
     data: {
@@ -181,31 +195,11 @@ var long_isi = {
 
 
 
-var long_isi_blank = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<h1>+</h1>',
-    choices: "NO_KEYS",
-    trial_duration: long_isi_blank_duration,
-    data: {
-        task: "blank"
-    }
-}
-
 var short_isi = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: ' ',
+    stimulus: '',
     choices: "NO_KEYS",
     trial_duration: short_isi_duration,
-    data: {
-        task: "blank"
-    }
-}
-
-var short_isi_blank = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<h1>+</h1> ',
-    choices: "NO_KEYS",
-    trial_duration: short_isi_blank_duration,
     data: {
         task: "blank"
     }
@@ -345,11 +339,11 @@ if (debug) {
 function startExperiment() {
     timeline.push(
         WelcomeTrial,
-        //enterFullscreen,
-        //consentTrial,
-        //neptunCodeTrial,
-        //genderTrial,
-        //ageTrial,
+        enterFullscreen,
+        consentTrial,
+        neptunCodeTrial,
+        genderTrial,
+        ageTrial,
         IntroTrial,
         practiceStart)
 
@@ -424,7 +418,7 @@ function startExperiment() {
 
     for (let i = 0; i < practice_trials.length; i++) {
         var practice_block = {
-            timeline: [long_isi_blank, prime, long_isi, probe, too_slow], //What runs
+            timeline: [fixation, prime, long_isi, probe, too_slow], //What runs
             timeline_variables: practice_trials[i],
             conditional_function: function () { //Whether it runs
                 if (practice_passed == true) {
@@ -493,7 +487,7 @@ function startExperiment() {
 
     let experimental_blocks = [];
 
-    let longFirst = (Math.floor(Math.random() * 2)) == 1
+    let longFirst = (Math.floor(Math.random() * 2))
 
 
     for (let i = 0; i < experimental_trials.length; i++) {
@@ -508,16 +502,16 @@ function startExperiment() {
 
         experimental_blocks.push(blockStart)
 
-        if (longFirst == true) {
+        if (longFirst == 1) {
             if (i < experimental_trials.length - 5) {
                 experimental_blocks.push({
-                    timeline: [prime, long_isi, probe, long_isi_blank],
+                    timeline: [fixation, prime, long_isi, probe],
                     timeline_variables: experimental_trials[i]
                 })
             }
             else {
                 experimental_blocks.push({
-                    timeline: [prime, short_isi, probe, short_isi_blank],
+                    timeline: [lead_in_blank, fixation, prime, short_isi, probe],
                     timeline_variables: experimental_trials[i]
                 })
             }
@@ -525,13 +519,13 @@ function startExperiment() {
         else {
             if (i < experimental_trials.length - 5) {
                 experimental_blocks.push({
-                    timeline: [prime, short_isi, probe, short_isi_blank],
+                    timeline: [lead_in_blank, fixation, prime, short_isi, probe],
                     timeline_variables: experimental_trials[i]
                 })
             }
             else {
                 experimental_blocks.push({
-                    timeline: [prime, long_isi, probe, long_isi_blank],
+                    timeline: [fixation, prime, long_isi, probe],
                     timeline_variables: experimental_trials[i]
                 })
             }
