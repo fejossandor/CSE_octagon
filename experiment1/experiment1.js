@@ -40,7 +40,7 @@ var WelcomeTrial = {
 let IntroTrial = {
 	type: jsPsychHtmlKeyboardResponse,
 	stimulus: `
-    <h2> A feladatod az lesz, hogy a megjelenő ingernek megfelelő gombot nyomd be olyan gyorsan, amilyen gyorsan csak tudod </h2>
+	<h2>Hello A feladatod az lesz, hogy a megjelenő ingernek megfelelő gombot nyomd be olyan gyorsan, amilyen gyorsan csak tudod </h2>
     <p><b>Kérlek helyezd a bal középső ujjad a <span class ='key'>F</span> billentyűre, a bal mutató ujjad a <span class ='key'>G</span> billentyűre, a jobb középső ujjad a <span class ='key'>J</span> billentyűre, a jobb mutató ujjad a <span class ='key'>N</span> billentyűre.</b></p>
     <p> Először egy nagyobb méretű betűt fogsz látni, amelyre <b> nem kell reagálnod</b> </p> 
     <p> Ezt követően rövid ideig fehér képernyőt fogsz látni, majd megjelenik az a betű, amelyre reagálnod kell</p>

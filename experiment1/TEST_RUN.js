@@ -76,20 +76,33 @@ let enterFullscreen = {
     type: jsPsychFullscreen,
     fullscreen_mode: true,
     message: `<p><b>A kísérlet teljes képernyős módba fog váltani. Kérlek kattintsd a <span class="key"> FOLYTATÁS </span> gombra</b></p>`,
-    button_label: "FOLYTATÁS"
+    button_label: 'Folytatás'
 }
 
-//Declaration of consent 
+// Declaration of consent 
 let consentTrial = {
     type: jsPsychSurveyMultiChoice,
+
     questions: [{
         prompt: "A beleegyező nyilatkozatot elolvastam és beleegyezem a kutatásban való részvételbe.",
         name: "Beleegyezés",
         options: ['Igen', 'Nem'],
         required: true
     }],
-    data: { collect: true }
-}
+
+    data: { collect: true },
+    button_label: 'Folytatás',
+
+    on_finish: function (data) {
+        if (data.response.Beleegyezés == 'Nem') {
+            jsPsych.abortExperiment(
+                `<h2>Kísérlet vége</h2> 
+                 <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> 
+                 Köszönjük, hogy részt vettél a vizsgálatban!</p>`
+            );
+        }
+    }
+};
 
 //Credentials 
 let neptunCodeTrial = {
@@ -108,13 +121,14 @@ let genderTrial = {
         options: ['Férfi', 'Nő', 'Nem szeretném megadni', 'Egyéb'],
         required: true,
         data: { collect: true }
-    }]
+    }],
+    button_label: 'Folytatás'
 }
 
 let ageTrial = {
     type: jsPsychSurveyHtmlForm,
     preamble: '<p>Kérlek add meg az életkorod!</p>',
-    html: '<input type= "text" name= "response" required>',
+    html: '<input type="number" name="response" min="18" max="100" required>',
     button_label: 'Folytatás',
     data: { collect: true }
 }
@@ -132,6 +146,8 @@ let IntroTrial = {
     <p>Ammennyiben <b>Y</b> betűt látsz, nyomd meg a <span class ='key'>J</span> billentyűt </p> 
     <p>Ammennyiben <b>Z</b> betűt látsz, nyomd meg a <span class ='key'>N</span> billentyűt </p>
     <p> Ha készen állsz, nyomd meg a <span class ='key'>SPACE</span> billentyűt a gyakorló blokk elkezdéséhez!</p>
+    
+    <img src="./keyboard_finger_positioning.png" width="400">
     `,
     choices: [' ']
 };
@@ -244,7 +260,7 @@ var blockEnd = {
     trial_duration: 120000, // trial auto-ends after 2 minutes
     /*
     Timer - full Claude 
-
+ 
     */
     on_load: function () {
         var timeLeft = 120; // seconds
@@ -360,60 +376,60 @@ function startExperiment() {
 
 
     /* Explanation, as to what is happening here: 
-   
-   Python:
-   1. The python trial generation works the same way as for the experimental trials --> so that we don't have to work with various structures --> 
-   - The python code generates practice trials with the same constraints --> 10 blocks, but less trials in each block compared to the experimental trials
-   
-   JS:
-   0. var practice_passed is defined at the very top, as a global variable 
-   
-   1. First a loop is created - Given the structure of the json files, this loop "goes through" the first layer,
-   so the length of the practice trials object is the number of blocks. 
-   If we were to write another loop, like for (let j = 0; j < practice_trials[i].lenght; i++) within this one, 
-   that would go through the block itself, and the length would become the number of trials within a block. 
-
-   2. var practice block is created
-   - the timeline just gives it the structure based on the objects defined above:
-   In the timeline, there is prime --> checks the prime object in the code --> given that we are working inside practice_trials, 
-   the evaluate timelineVariable part sees the practice_trials json --> grabs the first "prime". This applies to probe as well, 
-   the long_isi, long_isi_blank are self-explanatory. 
-   - Second part: conditional_function --> it is telling the code basically to not run the object, if practice_passed is true - BUT: by default it is set to true above
-   Therefore, it runs until the block ends.
-
-   3.repeat_prac_message - it is just a trial that the participant is displayed, if they fail to reach the sufficient level of accuracy
-
-
-   4. Accuracy check
-   - Not the most elegant solution, but at least easier to grasp
-   - It is a separate trial that comes in the loop after the first block of the practice block ran
-   - The timeline contains WHAT will run --> it is an empty trial basically with an on_finish function
-   - When the trial is finished --> on_finish function --> a var last_prac_trials is defined which contains the number of probes
-   from the last block (given the filter in the jsPsych.data.get part)
-   - var n_correct contains the number of correct responses of the previous practice block
-   - prop corr --> basic division
-   - if the prop corr is bigger than 0.8 --> IT CHANGES THE practice_passed to true !!!! --> This is why
-   the practice_block will always run at least once, because the practice_passed basic value is false
-
-
-   5. Repeat prac
-   - This is just the repeat prac_message
-   - The condition of this in order to to run is practice_passed to be true
-
-
-   So how does it all work: 
-   - Loop: basic value of practice_passed: false --> practice_block - first block runs if practice_passed is FALSE --> 
-   accuracy_check runs if practice passed is FALSE --> determines whether to change the practice_passed value or not -->
-   
-   IF THE PARTICIPANT REACHED 80% ACCURACY: practice_passed is set to TRUE --> the next trial only runs, if it is false, so it does
-   not run --> next - given it is a loop - we return to practice block, BUT: its condition is that it only runs if practice_passed is FALSE,
-   so it does not run, accuracy check does not run, so the loop ends. 
-
-   IF THE PARTICIPANT DID NOT REACH 80% ACCURACY: practice_passed remains FALSE --> the next trial runs, they see a message to restart --> 
-   after that the loop returns to the practice_block with the next block of practice trials included, and it runs because practice_passed is false -
-   so everything starts over again --> this goes until they pass or until they go through 10 blocks without passing - hopefully that does not happen
-   
-   */
+     
+    Python:
+    1. The python trial generation works the same way as for the experimental trials --> so that we don't have to work with various structures --> 
+    - The python code generates practice trials with the same constraints --> 10 blocks, but less trials in each block compared to the experimental trials
+     
+    JS:
+    0. var practice_passed is defined at the very top, as a global variable 
+     
+    1. First a loop is created - Given the structure of the json files, this loop "goes through" the first layer,
+    so the length of the practice trials object is the number of blocks. 
+    If we were to write another loop, like for (let j = 0; j < practice_trials[i].lenght; i++) within this one, 
+    that would go through the block itself, and the length would become the number of trials within a block. 
+    
+    2. var practice block is created
+    - the timeline just gives it the structure based on the objects defined above:
+    In the timeline, there is prime --> checks the prime object in the code --> given that we are working inside practice_trials, 
+    the evaluate timelineVariable part sees the practice_trials json --> grabs the first "prime". This applies to probe as well, 
+    the long_isi, long_isi_blank are self-explanatory. 
+    - Second part: conditional_function --> it is telling the code basically to not run the object, if practice_passed is true - BUT: by default it is set to true above
+    Therefore, it runs until the block ends.
+    
+    3.repeat_prac_message - it is just a trial that the participant is displayed, if they fail to reach the sufficient level of accuracy
+    
+    
+    4. Accuracy check
+    - Not the most elegant solution, but at least easier to grasp
+    - It is a separate trial that comes in the loop after the first block of the practice block ran
+    - The timeline contains WHAT will run --> it is an empty trial basically with an on_finish function
+    - When the trial is finished --> on_finish function --> a var last_prac_trials is defined which contains the number of probes
+    from the last block (given the filter in the jsPsych.data.get part)
+    - var n_correct contains the number of correct responses of the previous practice block
+    - prop corr --> basic division
+    - if the prop corr is bigger than 0.8 --> IT CHANGES THE practice_passed to true !!!! --> This is why
+    the practice_block will always run at least once, because the practice_passed basic value is false
+    
+    
+    5. Repeat prac
+    - This is just the repeat prac_message
+    - The condition of this in order to to run is practice_passed to be true
+    
+    
+    So how does it all work: 
+    - Loop: basic value of practice_passed: false --> practice_block - first block runs if practice_passed is FALSE --> 
+    accuracy_check runs if practice passed is FALSE --> determines whether to change the practice_passed value or not -->
+     
+    IF THE PARTICIPANT REACHED 80% ACCURACY: practice_passed is set to TRUE --> the next trial only runs, if it is false, so it does
+    not run --> next - given it is a loop - we return to practice block, BUT: its condition is that it only runs if practice_passed is FALSE,
+    so it does not run, accuracy check does not run, so the loop ends. 
+    
+    IF THE PARTICIPANT DID NOT REACH 80% ACCURACY: practice_passed remains FALSE --> the next trial runs, they see a message to restart --> 
+    after that the loop returns to the practice_block with the next block of practice trials included, and it runs because practice_passed is false -
+    so everything starts over again --> this goes until they pass or until they go through 10 blocks without passing - hopefully that does not happen
+     
+    */
 
 
     for (let i = 0; i < practice_trials.length; i++) {
@@ -533,7 +549,6 @@ function startExperiment() {
 
         if (i < experimental_trials.length - 1) { experimental_blocks.push(blockEnd) }
     }
-
 
 
     timeline.push(
