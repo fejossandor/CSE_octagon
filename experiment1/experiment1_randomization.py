@@ -1,11 +1,10 @@
-import numpy as np
-import pandas as pd
+
 import random
 import json
 import os
 
-os.mkdir("practice_trials")
-os.mkdir("experimental_trials")
+os.makedirs("practice_trials", exist_ok = True) 
+os.makedirs("experimental_trials", exist_ok = True)
 
 all_experiments = []
 
@@ -188,6 +187,41 @@ for experiment in range(100):
         elif (trial["probe"] == "B"):
           new_cor.append("g")
           trial["correct_response"] = new_cor[0]
+
+      num65_trial = { 
+                   "block": diagnostic_probe_trial["block"], 
+                    "id": i, 
+                    "trial_order":trial_order[block], 
+                    "condition": random.choice(["C", "I"])}
+
+      if (trials[-1]["prime"] == "Y" or trials[-1]["prime"] == "Z"):
+          num65_trial["prime"] = random.choice(["A", "B"])
+      elif (trials[-1]["prime"] == "A" or trials[-1]["prime"] == "B"):
+          num65_trial["prime"] = random.choice(["Y", "Z"])
+
+      if(num65_trial["condition"] == "C"):
+          num65_trial["probe"] = num65_trial["prime"]
+      elif(num65_trial["condition"] == "I"):
+          if(num65_trial["prime"] == "A"):
+            num65_trial["probe"] = "B"
+          elif(num65_trial["prime"] == "B"):
+            num65_trial["probe"] = "A"
+          elif(num65_trial["prime"] == "Y"):
+            num65_trial["probe"] = "Z"
+          elif(num65_trial["prime"] == "Z"):
+            num65_trial["probe"] = "Y"
+
+      if(num65_trial["probe"] == "A"):
+          num65_trial["correct_response"] = "f"
+      elif(num65_trial["probe"] == "B"):
+          num65_trial["correct_response"] = "g"
+      elif(num65_trial["probe"] == "Y"):
+          num65_trial["correct_response"] = "j"
+      elif(num65_trial["probe"] == "Z"): 
+          num65_trial["correct_response"] = "z"
+      trials.append(num65_trial)
+           
+
          
       all_blocks.append(trials)
    all_experiments.append(all_blocks)
@@ -383,6 +417,40 @@ for practice in range(100):
         elif (trial["probe"] == "B"):
           new_cor.append("g")
           trial["correct_response"] = new_cor[0]
+      num65_trial = { 
+                  "block": diagnostic_probe_trial["block"], 
+                  "id": i, 
+                  "trial_order":trial_order[block], 
+                  "condition": random.choice(["C", "I"])}
+      
+      if (trials[-1]["prime"] == "Y" or trials[-1]["prime"] == "Z"):
+          num65_trial["prime"] = random.choice(["A", "B"])
+      elif (trials[-1]["prime"] == "A" or trials[-1]["prime"] == "B"):
+          num65_trial["prime"] = random.choice(["Y", "Z"])
+
+      if(num65_trial["condition"] == "C"):
+          num65_trial["probe"] = num65_trial["prime"]
+      elif(num65_trial["condition"] == "I"):
+          if(num65_trial["prime"] == "A"):
+            num65_trial["probe"] = "B"
+          elif(num65_trial["prime"] == "B"):
+            num65_trial["probe"] = "A"
+          elif(num65_trial["prime"] == "Y"):
+            num65_trial["probe"] = "Z"
+          elif(num65_trial["prime"] == "Z"):
+            num65_trial["probe"] = "Y"
+
+      if(num65_trial["probe"] == "A"):
+          num65_trial["correct_response"] = "f"
+      elif(num65_trial["probe"] == "B"):
+          num65_trial["correct_response"] = "g"
+      elif(num65_trial["probe"] == "Y"):
+          num65_trial["correct_response"] = "j"
+      elif(num65_trial["probe"] == "Z"): 
+          num65_trial["correct_response"] = "z"
+      trials.append(num65_trial)
+                 
+      
          
       practice_blocks.append(trials)
    practice_experiments.append(all_blocks)
