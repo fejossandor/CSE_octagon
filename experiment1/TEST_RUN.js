@@ -61,30 +61,33 @@ if (debug) {
 var WelcomeTrial = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
+    <div style="max-width: 1100px; margin: 0 auto; padding: 0;">
     <h2>Üdvözlünk a <b>Metatudomány Kutatócsoport</b> vizsgálatában!</h2>
-    <p>Egy tudományos kutatásban veszel részt, amelynek vezetője <b>Bognár Miklós</b>, az ELTE Affektív Pszichológia Tanszékének kutatója.
+    <p>Egy tudományos kutatásban veszel részt, amelynek vezetője Dr. Bognár Miklós, az ELTE Affektív Pszichológia Tanszékének kutatója.
     A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
-    <h3>Részvétel</h3>
-    <p>A kutatásban való részvétel teljesen önkéntes. A vizsgálatot bármikor indoklás nélkül megszakíthatod.
-    Ha bármilyen kérdésed, észrevételed vagy problémád van a kutatással kapcsolatban,
-    írj Bognár Miklósnak a <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a> címre.</p>
+    </div>
   `,
-    choices: ["Vissza", "Tovább"]
+    choices: ["Tovább"]
 };
 
-let enterFullscreen = {
-    type: jsPsychFullscreen,
-    fullscreen_mode: true,
-    message: `<p><b>A kísérlet teljes képernyős módba fog váltani. Kérlek kattintsd a <span class="key"> FOLYTATÁS </span> gombra</b></p>`,
-    button_label: 'Folytatás'
-}
 
-// Declaration of consent 
-let consentTrial = {
+//Information Statement
+let informationStatement = {
     type: jsPsychSurveyMultiChoice,
+    preamble: `
+    <div style="max-width: 1100px; margin: 0 auto; padding: 0;">
+    <h3>Tájékoztató nyilatkozat</h3>
+    <p> Szigorúan bizalmasan kezelünk minden olyan személyes információt, amit a kutatás keretén belül gyűjtünk össze. A kutatás során nyert adatokat kóddal ellátva biztonságos számítógépeken tároljuk. A kutatás során nyert adatokat összegezzük. Az ELTE PPK Affektív Pszichológia Tanszék Metatudomány Kutatócsoportja mint adatkezelő, fenti személyes adataidat bizalmasan kezeli, más adatkezelőnek, adatfeldolgozónak nem adja át. E tényállás részleteit a <b>„Hozzájárulás adatkezeléshez”</b> c. dokumentum tartalmazza: <a href="https://metasciencelab.elte.hu/adatkezelesi-tajekoztato" target="_blank">https://metasciencelab.elte.hu/adatkezelesi-tajekoztato</a>.</p>
+    <p>Az adatkezelésről szóló szabályozásról részletesebben pedig itt tájékozódhatsz: <a href="https://ppk.elte.hu/file/Hozzajarulas_adatkezeleshez_melleklet_2018.pdf" target="_blank">https://ppk.elte.hu/file/Hozzajarulas_adatkezeleshez_melleklet_2018.pdf</a>.</p> 
+    <p>A kutatás során nyert személyes adataidat arra használjuk fel, hogy regisztrálhassuk a részvételért járó kurzuspontokat. Az azonosítására alkalmas adatokat (NEPTUN kód) ezután törölni fogjuk. A kezelt adatok a következők: <b>Neptun-kód</b>; <b>életkor</b>; <b>nem</b>. Válaszaid nem lesznek semmilyen módon hozzád köthetők. Az anonimizált adataidat más kutatókkal megosztjuk.</p>
+    
+    <p>A kutatásban való részvétel teljesen önkéntes. A vizsgálatot bármikor indoklás nélkül megszakítható.</p> 
+    
+    <p>Ha bármilyen kérdésed, aggályod vagy panaszod van a kísérlettel kapcsolatban, kérlek szólj a kísérletvezetőnek, vagy írj az <b>bognar.miklos@ppk.elte.hu emailcímre</b>!</p>
+    </div>`,
 
     questions: [{
-        prompt: "A beleegyező nyilatkozatot elolvastam és beleegyezem a kutatásban való részvételbe.",
+        prompt: "<b>A „Hozzájárulás az adatkezeléshez” c. dokumentumot elolvastam és a benne foglaltakat elfogadom.</b>",
         name: "Beleegyezés",
         options: ['Igen', 'Nem'],
         required: true
@@ -96,13 +99,51 @@ let consentTrial = {
     on_finish: function (data) {
         if (data.response.Beleegyezés == 'Nem') {
             jsPsych.abortExperiment(
-                `<h2>Kísérlet vége</h2> 
-                 <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px"> 
-                 Köszönjük, hogy részt vettél a vizsgálatban!</p>`
+                `<h2>Kísérlet vége</h2> `
+            );
+        }
+    }
+}
+
+
+//Consent Statement 
+let consentStatement = {
+    type: jsPsychSurveyMultiChoice,
+    preamble: `
+    <div style="max-width: 1100px; margin: 0 auto; padding: 0;">
+    <h3>Beleegyező nyilatkozat</h3>
+    <p>Felelősségem teljes tudatában kijelentem, hogy a mai napon az Eötvös Loránd Tudományegyetem, Dr. Bognár Miklós kutatásvezető által végzett vizsgálatban önként veszek részt; a vizsgálat jellegéről, annak megkezdése előtt kielégítő tájékoztatást kaptam; nem szenvedek semmilyen pszichiátriai betegségben; nem élek semmilyen színérzékelési zavarral (színvakság, színtévesztés); a vizsgálat idején alkohol vagy drogok hatása alatt nem állok.</p>
+    <p>Tudomásul veszem, hogy az azonosításomra alkalmas személyi adataimat bizalmasan kezelik. Hozzájárulok ahhoz, hogy a vizsgálat során a rólam felvett, személyem azonosítására nem alkalmas adatok más kutatók számára is hozzáférhetők legyenek.</p>
+    <p>Fenntartom a jogot arra, hogy a vizsgálat során annak folytatásától bármikor elállhassak. Ilyen esetben a rólam addig felvett adatokat törölni kell.</p>
+    <p>Tudomásul veszem, hogy csak a teljesen befejezett kitöltésért kapok pontot a Pszichológiai kísérletben és tudományos aktivitásban való részvétel nevű kurzuson.</p> 
+    </div>`,
+
+    questions: [{
+        prompt: "<b>A kutatásban való részvételem körülményeiről részletes tájékoztatást kaptam, a feltételekkel egyetértek.</b>",
+        name: "Beleegyezés",
+        options: ['Igen', 'Nem'],
+        required: true
+    }],
+
+    data: { collect: true },
+    button_label: 'Folytatás',
+
+    on_finish: function (data) {
+        if (data.response.Beleegyezés == 'Nem') {
+            jsPsych.abortExperiment(
+                `<h2>Kísérlet vége</h2> `
             );
         }
     }
 };
+
+let enterFullscreen = {
+    type: jsPsychFullscreen,
+    fullscreen_mode: true,
+    message: `<p><b>A kísérlet teljes képernyős módba fog váltani. Kérlek kattintsd a <span class="key"> FOLYTATÁS </span> gombra</b></p>`,
+    button_label: 'Folytatás'
+}
+
 
 //Credentials 
 let neptunCodeTrial = {
@@ -355,8 +396,9 @@ if (debug) {
 function startExperiment() {
     timeline.push(
         WelcomeTrial,
+        informationStatement,
+        consentStatement,
         enterFullscreen,
-        consentTrial,
         neptunCodeTrial,
         genderTrial,
         ageTrial,
