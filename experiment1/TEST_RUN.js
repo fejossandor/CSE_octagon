@@ -36,7 +36,7 @@ async function loadExperiment() {
 var fixation_duration = 300
 var pre_fix_blank_short_isi = 967
 var probe_duration = 1500;
-var probe_stim_duration = 200; //they had 1500ms to respond from target onset in exp1 -> exp3 is a modification of exp1 with 5 exceptions, so we ought to take into account what they did in exp1 if not specififed
+var probe_stim_duration = 200;
 var prime_duration = 200;
 var long_isi_duration = 1000;
 var short_isi_duration = 33;
@@ -64,7 +64,7 @@ var WelcomeTrial = {
     <div style="max-width: 1100px; margin: 0 auto; padding: 0;">
     <h2>Üdvözlünk a <b>Metatudomány Kutatócsoport</b> vizsgálatában!</h2>
     <p>Egy tudományos kutatásban veszel részt, amelynek vezetője Dr. Bognár Miklós, az ELTE Affektív Pszichológia Tanszékének kutatója.
-    A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
+    Jelen kognitív kontroll kutatás célja a Weissman és munkatársai (2015) által kimutatott fordított kongruenciahatás replikációja, valamint a kongruencia-szekvencia hatás response modulation keretrendszerének vizsgálata, amely a fordított kongruencia hatás lehetséges magyarázatát kínálja.</p>
     </div>
   `,
     choices: ["Tovább"]

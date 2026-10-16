@@ -218,7 +218,7 @@ for experiment in range(100):
       elif(num65_trial["probe"] == "Y"):
           num65_trial["correct_response"] = "j"
       elif(num65_trial["probe"] == "Z"): 
-          num65_trial["correct_response"] = "z"
+          num65_trial["correct_response"] = "n"
       trials.append(num65_trial)
            
 
